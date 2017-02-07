@@ -1,0 +1,21 @@
+<ion-view view-title="Frontend Capstone">
+  <ion-content>
+    <form class="list" ng-submit="createItinerary">
+      <label class="item item-input">
+        <input ng-model="day.travelTime"type="text" placeholder="Travel time">
+      </label>
+      <label class="item item-input">
+        <input ng-model="day.destination"type="text" placeholder="Destination">
+      </label>
+      <label class="item item-input">
+        <input ng-model="day.destTime"type="text" placeholder="Time spent">
+      </label>
+      <label class="item item-input">
+        <textarea ng-model="day.comments"placeholder="Comments"></textarea>
+      </label>
+      <button class="button button-block button-energized">
+        Block Button
+      </button>
+    </form>
+  </ion-content>
+</ion-view>
