@@ -79,7 +79,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('TripsCtrl', function($scope, $location, firebaseFactory){
+.controller('TripsCtrl', function($scope, firebaseFactory){
 
   //gets forms and sets the objs to scope
   firebaseFactory.getForm()
@@ -87,7 +87,15 @@ angular.module('starter.controllers', [])
       $scope.forms = val.data
       console.log($scope.forms);
     })
+})
 
+.controller('CityCtrl', function($scope, $stateParams ,firebaseFactory){
 
+  firebaseFactory.getForm()
+    .then((val) => {
+      $scope.form = val.data
+      console.log($scope.form);
+    })
 
+    $scope.currentCity = $stateParams.city
 })
