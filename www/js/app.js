@@ -32,12 +32,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'AppCtrl'
   })
 
-  .state('app.travels', {
-    url: '/travels',
+  .state('app.trips', {
+    url: '/trips',
     views: {
       'menuContent': {
-        templateUrl: 'templates/travels.html',
-        controller: 'TravelCtrl'
+        templateUrl: 'templates/trips.html',
+        controller: 'TripsCtrl'
       }
     }
   })

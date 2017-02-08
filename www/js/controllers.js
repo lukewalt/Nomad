@@ -70,7 +70,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('TravelCtrl', function($scope, firebaseFactory){
+.controller('TripsCtrl', function($scope, firebaseFactory){
 
   //gets forms and sets the objs to scope
   firebaseFactory.getForm()
