@@ -60,23 +60,34 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FormCtrl', function($scope, firebaseFactory) {
+.controller('FormCtrl', function($scope, $location, firebaseFactory) {
+  //empty object
   $scope.day = {}
 
+  //takes input values and creates a "day" object in firebase
   $scope.createForm = () => {
     console.log($scope.day);
-    firebaseFactory.postForm($scope.day)
+    firebaseFactory.postForm($scope.day, $scope.day.city)
     .then(() => $scope.day = {})
   }
+
+  //takes user to see their day
+  $scope.goToDay = () => {
+    console.log("got to day");
+    $location.url('/day')
+  }
+
 })
 
-.controller('TripsCtrl', function($scope, firebaseFactory){
+.controller('TripsCtrl', function($scope, $location, firebaseFactory){
 
   //gets forms and sets the objs to scope
   firebaseFactory.getForm()
     .then((val) => {
-    $scope.forms = val.data.forms
-    console.log($scope.forms);
+      $scope.forms = val.data
+      console.log($scope.forms);
     })
+
+
 
 })
