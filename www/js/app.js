@@ -42,11 +42,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.city', {
+      url: '/trips/:city',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/city.html'
         }
       }
     })
@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/form');
 });

@@ -1,6 +1,14 @@
 <ion-view view-title="Create A Day">
   <ion-content>
-    <form class="list" ng-submit="createForm()">
+
+    <button class="button button-block button-energized" ng-click"goToDay()">
+      See Your Day
+    </button>
+
+    <form class="list" name="create-a-day" ng-submit="createForm()">
+      <label class="item item-input">
+        <input ng-model="day.city"type="text" placeholder="City">
+      </label>
       <label class="item item-input">
         <input ng-model="day.destination"type="text" placeholder="Destination">
       </label>
@@ -10,12 +18,8 @@
       <label class="item item-input">
         <input ng-model="day.destTime"type="text" placeholder="Time spent">
       </label>
-      <label class="item item-input">
-        <textarea ng-model="day.comments"placeholder="Comments"></textarea>
-      </label>
-      <button class="button button-block button-energized" >
-        Create A Day
-      </button>
+      <button class="button button-block button-energized"> Add </button>
     </form>
+
   </ion-content>
 </ion-view>
