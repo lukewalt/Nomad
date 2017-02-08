@@ -67,7 +67,7 @@ angular.module('starter.controllers', [])
   //takes input values and creates a "day" object in firebase
   $scope.createForm = () => {
     console.log($scope.day);
-    firebaseFactory.postForm($scope.day, $scope.day.city)
+    firebaseFactory.postForm($scope.day, $scope.day.city, $scope.day.day)
     .then(() => $scope.day = {})
   }
 
@@ -97,5 +97,16 @@ angular.module('starter.controllers', [])
       console.log($scope.form);
     })
 
-    $scope.currentCity = $stateParams.city
+  $scope.currentCity = $stateParams.city
+})
+
+.controller('DaysCtrl', function($scope, $stateParams, firebaseFactory){
+  $scope.currentCity = $stateParams.city
+
+    firebaseFactory.getForm()
+      .then((val) => {
+        $scope.form = val.data[$scope.currentCity]
+        console.log($scope.form);
+      })
+
 })

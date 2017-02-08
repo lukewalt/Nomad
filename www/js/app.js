@@ -31,7 +31,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-
+  .state('app.form', {
+    url: '/form',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/form.html',
+        controller: 'FormCtrl'
+      }
+    }
+  })
   .state('app.trips', {
     url: '/trips',
     views: {
@@ -51,22 +59,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
         }
       }
     })
-    .state('app.form', {
-      url: '/form',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/form.html',
-          controller: 'FormCtrl'
-        }
-      }
-    })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.days', {
+    url: '/trips/:city/:days',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/days.html',
+        controller: 'DaysCtrl'
       }
     }
   })

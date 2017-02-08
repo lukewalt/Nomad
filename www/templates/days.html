@@ -1,0 +1,17 @@
+<ion-view view-title="Days">
+  <ion-content>
+    <h1>{{currentCity}}</h1>
+
+    <div class="card" ng-repeat="(k, v) in form">
+      <div class="item item-text-wrap">
+        <ion-list>
+          {{form}}
+          <ion-checkbox ng-model="filter.red">{{destination}}</ion-checkbox>
+          <ion-checkbox ng-model="filter.yellow">{{destination}}</ion-checkbox>
+          <ion-checkbox ng-model="filter.pink">{{destination}}</ion-checkbox>
+        </ion-list>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
