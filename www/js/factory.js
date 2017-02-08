@@ -7,6 +7,7 @@ angular.module('starter.factories', [])
     },
     getForm: (form) => {
       return $http.get(`https://frontend-cap.firebaseio.com/.json`)
+      .then((val)=> val )
     }
   }
 })

@@ -63,11 +63,20 @@ angular.module('starter.controllers', [])
 .controller('FormCtrl', function($scope, firebaseFactory) {
   $scope.day = {}
 
-
-
   $scope.createForm = () => {
     console.log($scope.day);
     firebaseFactory.postForm($scope.day)
     .then(() => $scope.day = {})
   }
+})
+
+.controller('TravelCtrl', function($scope, firebaseFactory){
+
+  //gets forms and sets the objs to scope
+  firebaseFactory.getForm()
+    .then((val) => {
+    $scope.forms = val.data.forms
+    console.log($scope.forms);
+    })
+
 })

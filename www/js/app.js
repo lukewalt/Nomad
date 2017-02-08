@@ -36,7 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     url: '/travels',
     views: {
       'menuContent': {
-        templateUrl: 'templates/travels.html'
+        templateUrl: 'templates/travels.html',
+        controller: 'TravelCtrl'
       }
     }
   })
@@ -49,7 +50,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
         }
       }
     })
-    .state('app.itinerary', {
+    .state('app.form', {
       url: '/form',
       views: {
         'menuContent': {
