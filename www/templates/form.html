@@ -1,6 +1,6 @@
-<ion-view view-title="Frontend Capstone">
+<ion-view view-title="Create A Day">
   <ion-content>
-    <form class="list" ng-submit="createItinerary">
+    <form class="list" ng-submit="createForm()">
       <label class="item item-input">
         <input ng-model="day.travelTime"type="text" placeholder="Travel time">
       </label>
@@ -13,8 +13,8 @@
       <label class="item item-input">
         <textarea ng-model="day.comments"placeholder="Comments"></textarea>
       </label>
-      <button class="button button-block button-energized">
-        Block Button
+      <button class="button button-block button-energized" >
+        Create A Day
       </button>
     </form>
   </ion-content>

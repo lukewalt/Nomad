@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location, authFactory) {
+.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location) {
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/auth.html', {
@@ -60,10 +60,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ItineraryCtrl', function($scope, firebaseFactory) {
+.controller('FormCtrl', function($scope, firebaseFactory) {
   $scope.day = {}
 
-  $scope.createItinerary = () => {
 
+
+  $scope.createForm = () => {
+    console.log($scope.day);
+    firebaseFactory.postForm($scope.day)
+    .then(() => $scope.day = {})
   }
 })
