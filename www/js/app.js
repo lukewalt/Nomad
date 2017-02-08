@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
 
     .state('app', {
@@ -46,7 +46,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       url: '/trips/:city',
       views: {
         'menuContent': {
-          templateUrl: 'templates/city.html'
+          templateUrl: 'templates/city.html',
+          controller: 'CityCtrl'
         }
       }
     })
