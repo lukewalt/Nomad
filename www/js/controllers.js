@@ -68,32 +68,26 @@ angular.module('starter.controllers', [])
   $scope.createForm = () => {
     console.log($scope.day);
     firebaseFactory.postForm($scope.day)
+    .then(() => {
+      $scope.city = $scope.day.city
+      console.log($scope.city);
+    })
     .then(() => $scope.day = {})
   }
 
   //takes user to see their day
   $scope.goToDay = () => {
     console.log("got to day");
-    $location.url('/day')
+    console.log($scope.city);
+    $location.url(`/#/app/trips/${$scope.city}/spots`);
   }
 
 })
 
-.controller('TripsCtrl', function($scope, firebaseFactory){
+.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
 
   // empty array will store all city values from object
   let allCities = [];
-  // extracts one unique city per list of instances
-  function cleanArr(arr) {
-      let a = [], prev;
-      for (var i = 0; i < arr.length; i++) {
-          if (arr[i] !== prev) {
-              a.push(arr[i]);
-          }
-          prev = arr[i];
-      }
-      return a;
-  }
 
   //gets all destinations and sets them to values
   firebaseFactory.getForm()
@@ -105,7 +99,7 @@ angular.module('starter.controllers', [])
         //pushes all cities to array
         allCities.push(k.city)
         //filters 1 instince per city
-        $scope.cities = cleanArr(allCities)
+        $scope.cities = arrFactory.cleanArr(allCities)
       })
     })
 
@@ -113,24 +107,27 @@ angular.module('starter.controllers', [])
 
 .controller('CityCtrl', function($scope, $stateParams ,firebaseFactory){
 
-  firebaseFactory.getForm()
-    .then((val) => {
-      $scope.form = val.data
-      console.log($scope.form);
-    })
-
   $scope.currentCity = $stateParams.city
 })
 
-.controller('DaysCtrl', function($scope, $stateParams, firebaseFactory){
+.controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
   $scope.currentCity = $stateParams.city
+  let destArr = [];
 
   firebaseFactory.getForm()
     .then((val) => {
-      console.log(val.data);
-      $scope.destinations = val.data[$scope.currentCity]
-      console.log($scope.destinations);
+      let allDestinations = val.data.destination
+
+
+      angular.forEach(allDestinations, (v, k) => {
+        if (v.city === $scope.currentCity) {
+          //push days to user for card iteration
+          destArr.push(v)
+        }
+      })
+      $scope.dest = destArr
     })
+
 
 
 })

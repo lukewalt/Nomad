@@ -1,0 +1,14 @@
+<ion-view view-title="Days">
+  <ion-content>
+    <h1>{{currentCity}}</h1>
+
+    <div class="card">
+      <div class="item item-text-wrap">
+        <ul class="list" ng-repeat="item in dest">
+          <li class="item">{{item.travelTime}} - {{item.destination}} - {{item.destTime}}</li><br>
+        </ul>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

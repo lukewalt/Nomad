@@ -18,3 +18,19 @@ angular.module('starter.factories', [])
     }
   }
 })
+
+.factory('arrFactory', function(){
+  return {
+    cleanArr: (arr) => {
+      let a = [], prev;
+      arr.sort()
+      for (var i = 0; i < arr.length; i++) {
+          if (arr[i] !== prev) {
+              a.push(arr[i]);
+          }
+          prev = arr[i];
+      }
+      return a;
+    }
+  }
+})

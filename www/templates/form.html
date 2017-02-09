@@ -2,9 +2,6 @@
   <ion-content>
 
 
-    <button class="button button-block button-energized" ng-click"goToDay()">
-      See Your Day
-    </button>
     <form class="list" name="create-a-day" ng-submit="createForm()">
       <label class="item item-input">
         <input ng-model="day.city" type="text" placeholder="City">
@@ -18,17 +15,9 @@
       <label class="item item-input">
         <input ng-model="day.destTime" type="text" placeholder="Time spent">
       </label>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Day
-        </div>
-        <select ng-model="day.day">
-          <option>Day 1</option>
-          <option>Day 2</option>
-          <option>Day 3</option>
-        </select>
-      </label>
+
       <button class="button button-block button-energized"> Add </button>
+      <button class="button button-block button-energized" ng-click="goToDay()">See Your Day</button>
     </form>
 
   </ion-content>

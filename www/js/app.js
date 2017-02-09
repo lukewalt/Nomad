@@ -60,12 +60,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     })
 
-  .state('app.days', {
-    url: '/trips/:city/days',
+  .state('app.spots', {
+    url: '/trips/:city/spots',
     views: {
       'menuContent': {
-        templateUrl: 'templates/days.html',
-        controller: 'DaysCtrl'
+        templateUrl: 'templates/spots.html',
+        controller: 'SpotCtrl'
       }
     }
   })
