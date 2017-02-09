@@ -3,7 +3,7 @@ angular.module('starter.factories', [])
 .factory('firebaseFactory', function($q, $http){
   return {
     postForm: (form) => {
-      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/day/.json`, form));
+      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },
     getForm: () => {
       return $http.get(`https://frontend-cap.firebaseio.com/.json`)

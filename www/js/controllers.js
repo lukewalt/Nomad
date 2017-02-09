@@ -81,12 +81,34 @@ angular.module('starter.controllers', [])
 
 .controller('TripsCtrl', function($scope, firebaseFactory){
 
-  //gets forms and sets the objs to scope
+  // empty array will store all city values from object
+  let allCities = [];
+  // extracts one unique city per list of instances
+  function cleanArr(arr) {
+      let a = [], prev;
+      for (var i = 0; i < arr.length; i++) {
+          if (arr[i] !== prev) {
+              a.push(arr[i]);
+          }
+          prev = arr[i];
+      }
+      return a;
+  }
+
+  //gets all destinations and sets them to values
   firebaseFactory.getForm()
     .then((val) => {
-      $scope.forms = val.data
-      console.log($scope.forms);
+      //stores returned data in variable
+      let allDestinations = val.data.destination
+      //takes all objects and extracts all instince values of city key
+      angular.forEach(allDestinations, (k, v) => {
+        //pushes all cities to array
+        allCities.push(k.city)
+        //filters 1 instince per city
+        $scope.cities = cleanArr(allCities)
+      })
     })
+
 })
 
 .controller('CityCtrl', function($scope, $stateParams ,firebaseFactory){
