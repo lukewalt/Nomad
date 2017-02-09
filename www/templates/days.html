@@ -2,14 +2,15 @@
   <ion-content>
     <h1>{{currentCity}}</h1>
 
-    <div class="card" ng-repeat="(k, v) in form">
+    <div class="card" ng-repeat="(k, v) in destinations">
       <div class="item item-text-wrap">
-        <ion-list>
-          {{form}}
-          <ion-checkbox ng-model="filter.red">{{destination}}</ion-checkbox>
-          <ion-checkbox ng-model="filter.yellow">{{destination}}</ion-checkbox>
-          <ion-checkbox ng-model="filter.pink">{{destination}}</ion-checkbox>
-        </ion-list>
+        <h3>Day {{k}}</h3>
+        <ul class="list">
+          <li class="item">{{destinations}} to {{v.destination}} - {{v.destTime}}</li>
+          <li class="item">{{v.travelTime}} to {{v.destination}} - {{v.destTime}}</li>
+          <li class="item">{{v.travelTime}} to {{v.destination}} - {{v.destTime}}</li>
+        </ul>
+
       </div>
     </div>
 
