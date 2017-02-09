@@ -69,12 +69,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
-  .state('app.res', {
-    url: '/trips/:city/res',
+  .state('app.info', {
+    url: '/trips/:city/info',
     views: {
       'menuContent': {
-        templateUrl: 'templates/reservations.html',
-        controller: 'ResCtrl'
+        templateUrl: 'templates/tripinfo.html',
+        controller: 'InfoCtrl'
       }
     }
   })

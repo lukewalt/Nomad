@@ -9,8 +9,12 @@ angular.module('starter.factories', [])
       return $http.get(`https://frontend-cap.firebaseio.com/.json`)
       .then((val)=> val )
     },
-    postRes: (values) => {
-      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/reservations/.json`, values));
+    postInfo: (infonote) => {
+      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/info/.json`, infonote));
+    },
+    getInfo: () => {
+      return $http.get(`https://frontend-cap.firebaseio.com/info.json`)
+      .then((val)=> val )
     }
   }
 })

@@ -112,16 +112,18 @@ angular.module('starter.controllers', [])
 
 
 })
-.controller('ResCtrl', function($scope, $stateParams, firebaseFactory){
+.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
 
   $scope.currentCity = $stateParams.city
 
-  firebaseFactory.getForm()
-    .then((val) => {
-      console.log(val.data);
-      $scope.destinations = val.data[$scope.currentCity]
-      console.log($scope.destinations);
-    })
+  $scope.obj = {
+    city : $scope.currentCity
+  };
 
+  $scope.addInfo = () => {
+    console.log($scope.obj.infonote);
+    firebaseFactory.postInfo($scope.obj)
+    .then(() => $scope.obj.infonote = null)
+  }
 
 })
