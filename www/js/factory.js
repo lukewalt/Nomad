@@ -9,6 +9,9 @@ angular.module('starter.factories', [])
       return $http.get(`https://frontend-cap.firebaseio.com/.json`)
       .then((val)=> val )
     },
+    deleteForm: (key) => {
+      return $http.delete(`https://frontend-cap.firebaseio.com/destination/${key}.json`);
+    },
     postInfo: (infonote) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/info/.json`, infonote));
     },

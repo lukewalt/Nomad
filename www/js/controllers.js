@@ -111,32 +111,59 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('CityCtrl', function($scope, $stateParams ,firebaseFactory){
 
+.controller('CityCtrl', function($scope, $stateParams ,firebaseFactory){
   $scope.currentCity = $stateParams.city
 })
 
-.controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
-  $scope.currentCity = $stateParams.city
-  let destArr = [];
 
+.controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
+
+  let destArr = [];
+  let keyArr = [];
+  let itin = document.getElementById('itin')
+  $scope.currentCity = $stateParams.city
+
+  //gets spots for the day
   firebaseFactory.getForm()
     .then((val) => {
+      //sets all destinations to varibale
       let allDestinations = val.data.destination
-
-
+      //loops over dests and only returns data matching current city
       angular.forEach(allDestinations, (v, k) => {
         if (v.city === $scope.currentCity) {
           //push days to user for card iteration
+          console.log(k);
+          keyArr.push(k)
           destArr.push(v)
         }
       })
       $scope.dest = destArr
+      $scope.keys = keyArr
+      console.log(keyArr);
+      console.log(destArr);
     })
 
+    //UI Slide / delete / reorder
+    $scope.data = {
+        showDelete: false
+      };
 
+    $scope.edit = function(item) {
+      alert('Edit Item: ' + item.id);
+    };
+
+    $scope.moveItem = function(item, fromIndex, toIndex) {
+      $scope.dest.splice(fromIndex, 1);
+      $scope.dest.splice(toIndex, 0, item);
+    };
+
+    $scope.onItemDelete = function(item) {
+      $scope.dest.splice($scope.dest.indexOf(item), 1);
+    };
 
 })
+
 .controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
 
   $scope.currentCity = $stateParams.city
@@ -152,3 +179,45 @@ angular.module('starter.controllers', [])
   }
 
 })
+
+
+
+
+
+
+
+
+.controller('MyCtrl', function($scope) {
+
+  $scope.data = {
+    showDelete: false
+  };
+
+  $scope.edit = function(item) {
+    alert('Edit Item: ' + item.id);
+  };
+  $scope.share = function(item) {
+    alert('Share Item: ' + item.id);
+  };
+
+  $scope.moveItem = function(item, fromIndex, toIndex) {
+    $scope.items.splice(fromIndex, 1);
+    $scope.items.splice(toIndex, 0, item);
+  };
+
+  $scope.onItemDelete = function(item) {
+    $scope.items.splice($scope.items.indexOf(item), 1);
+  };
+
+  $scope.items = [
+    { id: 0 },
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 }
+
+
+  ];
+
+});
