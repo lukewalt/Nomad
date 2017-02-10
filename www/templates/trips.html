@@ -1,10 +1,10 @@
 <ion-view view-title="Trips">
   <ion-content>
 
-    <div class="list card" ng-repeat="(k, v) in forms">
-      <a href="#/app/trips/{{k}}">
+    <div class="list card" ng-repeat="i in cities">
+      <a href="#/app/trips/{{i}}">
         <div class="item">
-          <h2>{{k}}</h2>
+          <h2>{{i}}</h2>
         </div>
         <div class="item item-body">
           <img class="full-image" src="http://www.florida-palm-trees.com/wp-content/uploads/2010/02/palm-trees1.jpg">

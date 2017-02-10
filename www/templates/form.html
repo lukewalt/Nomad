@@ -2,23 +2,23 @@
   <ion-content>
 
 
-    <button class="button button-block button-energized" ng-click"goToDay()">
-      See Your Day
-    </button>
     <form class="list" name="create-a-day" ng-submit="createForm()">
+
       <label class="item item-input">
-        <input ng-model="day.city"type="text" placeholder="City">
+        <input ng-model="day.city" type="text" required ng-minlength="3" placeholder="City">
       </label>
       <label class="item item-input">
-        <input ng-model="day.destination"type="text" placeholder="Destination">
+        <input ng-model="day.destination" type="text" required ng-minlength="3" placeholder="Destination">
       </label>
       <label class="item item-input">
-        <input ng-model="day.travelTime"type="text" placeholder="Travel time">
+        <input ng-model="day.travelTime" type="text" required ng-minlength="1" placeholder="Travel time">
       </label>
       <label class="item item-input">
-        <input ng-model="day.destTime"type="text" placeholder="Time spent">
+        <input ng-model="day.destTime" type="text" required ng-minlength="1" placeholder="Time spent">
       </label>
-      <button class="button button-block button-energized"> Add </button>
+
+      <button class="button button-block button-energized" ng-disabled="credentialsForm.$invalid" > Add </button>
+      <button class="button button-block button-energized" ng-click="goToDay()" ng-if="viewDay" >See Your Day</button>
     </form>
 
   </ion-content>
