@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+const controller = angular.module('starter.controllers', [])
 
 .controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location) {
 
@@ -26,7 +26,6 @@ angular.module('starter.controllers', [])
   $timeout(function() {
     $scope.closeLogin();
   }, 1000)
-
 
 
 })
@@ -120,7 +119,6 @@ angular.module('starter.controllers', [])
 .controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
 
   let destArr = [];
-  let keyArr = [];
   let itin = document.getElementById('itin')
   $scope.currentCity = $stateParams.city
 
@@ -133,14 +131,11 @@ angular.module('starter.controllers', [])
       angular.forEach(allDestinations, (v, k) => {
         if (v.city === $scope.currentCity) {
           //push days to user for card iteration
-          console.log(k);
-          keyArr.push(k)
+          v.key = k;
           destArr.push(v)
         }
       })
       $scope.dest = destArr
-      $scope.keys = keyArr
-      console.log(keyArr);
       console.log(destArr);
     })
 
@@ -158,7 +153,8 @@ angular.module('starter.controllers', [])
       $scope.dest.splice(toIndex, 0, item);
     };
 
-    $scope.onItemDelete = function(item) {
+    $scope.onItemDelete = function(item, key) {
+      firebaseFactory.deleteForm(key);
       $scope.dest.splice($scope.dest.indexOf(item), 1);
     };
 
@@ -179,45 +175,3 @@ angular.module('starter.controllers', [])
   }
 
 })
-
-
-
-
-
-
-
-
-.controller('MyCtrl', function($scope) {
-
-  $scope.data = {
-    showDelete: false
-  };
-
-  $scope.edit = function(item) {
-    alert('Edit Item: ' + item.id);
-  };
-  $scope.share = function(item) {
-    alert('Share Item: ' + item.id);
-  };
-
-  $scope.moveItem = function(item, fromIndex, toIndex) {
-    $scope.items.splice(fromIndex, 1);
-    $scope.items.splice(toIndex, 0, item);
-  };
-
-  $scope.onItemDelete = function(item) {
-    $scope.items.splice($scope.items.indexOf(item), 1);
-  };
-
-  $scope.items = [
-    { id: 0 },
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 }
-
-
-  ];
-
-});
