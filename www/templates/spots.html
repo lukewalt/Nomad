@@ -4,7 +4,7 @@
 
     <div class="card">
 
-      <ion-header-bar class="bar-positive">
+      <ion-header-bar class="bar-energized">
             <div class="buttons">
               <button class="button button-icon icon ion-ios-minus-outline"
                 ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
@@ -24,9 +24,9 @@
                          class="item-remove-animate">
                 {{item.travelTime}} - {{item.destination}} - {{item.destTime}}
                 <ion-delete-button class="ion-minus-circled"
-                                   ng-click="onItemDelete(item)">
+                                   ng-click="onItemDelete(item, item.key)">
                 </ion-delete-button>
-                <ion-option-button class="button-assertive"
+                <ion-option-button class="button-energized"
                                    ng-click="edit(item)">
                   Edit
                 </ion-option-button>
