@@ -79,7 +79,7 @@ angular.module('starter.controllers', [])
   $scope.goToDay = () => {
     console.log("got to day");
     console.log($scope.city);
-    $location.url(`/#/app/trips/${$scope.city}/spots`);
+    $location.url(`/app/trips/${$scope.city}/spots`);
   }
 
 })
