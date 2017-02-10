@@ -71,16 +71,22 @@ angular.module('starter.controllers', [])
     .then(() => {
       $scope.city = $scope.day.city
       console.log($scope.city);
+      $scope.viewDay = true
     })
     .then(() => $scope.day = {})
   }
 
   //takes user to see their day
   $scope.goToDay = () => {
-    console.log("got to day");
     console.log($scope.city);
-    $location.url(`/app/trips/${$scope.city}/spots`);
+    if ($scope.city === undefined) {
+      $scope.viewDay = false
+    } else {
+      $location.url(`/app/trips/${$scope.city}/spots`);
+    }
   }
+
+
 
 })
 
