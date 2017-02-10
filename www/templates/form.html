@@ -1,4 +1,5 @@
-<ion-view view-title="Create A Day">
+requiredrequired required <ion-view view-title="Create A Day">
+required required <ion-view view-title="Create A Day">
   <ion-content>
 
 
@@ -10,11 +11,35 @@
       <label class="item item-input">
         <input ng-model="day.destination" type="text" required ng-minlength="3" placeholder="Destination">
       </label>
-      <label class="item item-input">
-        <input ng-model="day.travelTime" type="text" required ng-minlength="1" placeholder="Travel time">
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Travel Time
+        </div>
+        <select ng-model="day.travelTime" required>
+          <option></option>
+          <option>0.5 hr</option>
+          <option>1 hr</option>
+          <option>2 hr</option>
+          <option>3 hr</option>
+          <option>4 hr</option>
+          <option>5 hr</option>
+        </select>
       </label>
-      <label class="item item-input">
-        <input ng-model="day.destTime" type="text" required ng-minlength="1" placeholder="Time spent">
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Dest Time
+        </div>
+        <select ng-model="day.destTime" required>
+          <option></option>
+          <option>0.5 hr</option>
+          <option>1 hr</option>
+          <option>2 hr</option>
+          <option>3 hr</option>
+          <option>4 hr</option>
+          <option>5 hr</option>
+        </select>
       </label>
 
       <button class="button button-block button-energized" ng-disabled="credentialsForm.$invalid" > Add </button>

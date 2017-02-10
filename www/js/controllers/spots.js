@@ -4,6 +4,10 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
   let itin = document.getElementById('itin')
   $scope.currentCity = $stateParams.city
 
+  function daySum(time) {
+    
+  }
+
   //gets spots for the day
   firebaseFactory.getForm()
     .then((val) => {
@@ -19,7 +23,11 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, firebaseFactory){
       })
       $scope.dest = destArr
       console.log(destArr);
+      //Summary Logic
+      $scope.totalTrav = null;
+      $scope.totalDest = null;
     })
+
 
     //UI Slide / delete / reorder
     $scope.data = {
