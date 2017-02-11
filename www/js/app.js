@@ -82,6 +82,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
+  .state('app.fav', {
+    url: '/trips/:city/fav-spots',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/fav.html',
+        controller: 'FavCtrl'
+      }
+    }
+  })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/form');
 });

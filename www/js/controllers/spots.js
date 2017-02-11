@@ -79,4 +79,10 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, arrFactory ,firebas
 
     };
 
+    $scope.addToFav = (item) => {
+      console.log("favs");
+      firebaseFactory.postFav(item)
+    }
+
+
 })
