@@ -3,15 +3,18 @@
     <h2>{{currentCity}}</h2>
     <div class="list">
 
-      <div class="item item-input-inset">
+      <form class="item item-input-inset" name="trip-info" ng-submit="addInfo()">
         <label class="item-input-wrapper">
-          <input type="text" placeholder="Add Info" ng-model="obj.infonote">
+          <input type="text" placeholder="Add Info" ng-model="obj.infonote" ng-minlength="2" required >
         </label>
-        <button class="button button-small" ng-click="addInfo()">
+        <button tpye="submit" class="button button-small" >
           Add
         </button>
-      </div>
-      <div>
+      </form>
+      <div class="card">
+        <div class="item item-text-wrap" ng-repeat="i in info">
+          {{i.infonote}}
+        </div>
 
       </div>
 
