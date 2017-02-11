@@ -28,7 +28,7 @@
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item, item.key)">
           </ion-delete-button>
-          <ion-option-button class="button-energized" ng-click="addToFav(item)">
+          <ion-option-button class="button-energized add-to-fav" ng-click="addToFav(item)" ng-disabled="flag">
                              <button class="button button-icon icon ion-pin custom-icon"> </button>
 
           </ion-option-button>
