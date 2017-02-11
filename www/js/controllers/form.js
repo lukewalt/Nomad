@@ -20,6 +20,7 @@ contrl.controller('FormCtrl', function($scope, $location, firebaseFactory) {
     if ($scope.city === undefined) {
       $scope.viewDay = false
     } else {
+      
       $location.url(`/app/trips/${$scope.city}/spots`);
     }
   }

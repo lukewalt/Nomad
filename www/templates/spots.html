@@ -22,7 +22,7 @@
         <ion-item ng-repeat="item in dest"
                   item="item"
                    class="item-remove-animate">
-          {{item.travelTime}} - {{item.destination}} - {{item.destTime}}
+          {{item.travelTime}} hrs - {{item.destination}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item, item.key)">
           </ion-delete-button>
@@ -39,10 +39,13 @@
     </div>
     <div class="card">
       <div class="item item-divider">
-        Summary
+        Day Summary
       </div>
       <div class="item item-text-wrap">
-        Travel Time {{totalTrav}} - Destination Time {{totalDest}}
+        Travel Time : {{totalTrav}} hrs
+      </div>
+      <div class="item item-text-wrap">
+        Destination Time : {{totalDest}} hrs
       </div>
     </div>
 

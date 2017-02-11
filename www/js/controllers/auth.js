@@ -1,3 +1,13 @@
+
+firebase.initializeApp({
+    apiKey: "AIzaSyDQRfBKyHDrPXJYhxnFi5r6opLorg0K5wY",
+    authDomain: "frontend-cap.firebaseapp.com",
+    databaseURL: "https://frontend-cap.firebaseio.com",
+    storageBucket: "frontend-cap.appspot.com",
+    messagingSenderId: "468124490040"
+})
+
+
 contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location) {
 
   // Create the login modal that we will use later

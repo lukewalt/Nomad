@@ -13,7 +13,7 @@ angular.module('starter.factories', [])
       return $http.delete(`https://frontend-cap.firebaseio.com/destination/${key}/.json`);
     },
     postInfo: (infonote) => {
-      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/info/.json`, infonote));
+      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/info.json`, infonote));
     },
     getInfo: () => {
       return $http.get(`https://frontend-cap.firebaseio.com/info.json`)
@@ -34,6 +34,13 @@ angular.module('starter.factories', [])
           prev = arr[i];
       }
       return a;
+    },
+    daySum: (arr) => {
+      var sum = 0;
+      for (var i = 0; i < arr.length; i++) {
+        sum = sum + arr[i];
+      }
+      return sum
     }
   }
 })
