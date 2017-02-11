@@ -19,6 +19,10 @@ angular.module('starter.factories', [])
       return $http.get(`https://frontend-cap.firebaseio.com/info.json`)
       .then((val)=> val )
     },
+    getFavs: () => {
+      return $http.get(`https://frontend-cap.firebaseio.com/fav-spots.json`)
+      .then((val)=> val )
+    },
     postFav: (item) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/fav-spots.json`, item));
     }

@@ -1,4 +1,4 @@
-contrl.controller('SpotCtrl', function($scope, $stateParams, arrFactory ,firebaseFactory){
+contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, arrFactory ,firebaseFactory){
 
   $scope.currentCity = $stateParams.city
   let destArr = [];
@@ -84,6 +84,9 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, arrFactory ,firebas
       console.log("favs");
       firebaseFactory.postFav(item)
       .then(()=>{ $scope.flag = true })
+      .then($timeout(() => {
+        $scope.flag = false;
+      },3500))
     }
 
 
