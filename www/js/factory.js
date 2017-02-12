@@ -1,6 +1,14 @@
 angular.module('starter.factories', [])
 
-.factory('firebaseFactory', function($q, $http){
+.factory('authFactory', ($q) => {
+  return {
+    registerUser: (email, pass) => {
+      return $q.resolve(firebase.auth().createUserWithEmailAndPassword(email, pass))
+    }
+  }
+})
+
+.factory('firebaseFactory', ($q, $http) => {
   return {
     postForm: (form) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
@@ -29,7 +37,7 @@ angular.module('starter.factories', [])
   }
 })
 
-.factory('arrFactory', function(){
+.factory('arrFactory', () => {
   return {
     cleanArr: (arr) => {
       let a = [], prev;
