@@ -8,7 +8,7 @@ firebase.initializeApp({
 })
 
 
-contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location, authFactory) {
+contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $state, authFactory) {
 
   // Create the register modal that we will use later
   $ionicModal.fromTemplateUrl('templates/register.html', {
@@ -32,12 +32,13 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
 
   // Perform the login action when the user submits the login form
   $scope.doRegister = () => {
-    console.log('login fired', $scope.regData)
-    // authFactory.registerUser($scope.regData.email, $scope.regData.password)
-    // .then(()=> $scope.closeRegister() )
-    $location.url('#/app/login')
-  }
+    authFactory
+    .registerUser($scope.regData.email, $scope.regData.password)
+    .then(()=> $scope.closeRegister())
+    .then(()=> $state.go('app.form'))
+    console.log('uid', firebase.auth().currentUser)
 
+  }
   $scope.doLogin = () => {
     console.log('login fired', $scope.loginData)
 

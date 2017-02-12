@@ -16,7 +16,9 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // Triggered in the login modal to close it
   $scope.closeLogout = function() {
+    firebase.auth().signOut()
     $scope.modal.hide();
+    console.log('currentUser', firebase.auth().currentUser );
   };
 
   // Open the logout modal
