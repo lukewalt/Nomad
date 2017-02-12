@@ -25,7 +25,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
   });
 })
 
-
 .config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
 
@@ -34,6 +33,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
+  })
+  .state('app.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'AuthCtrl'
+      }
+    }
   })
   .state('app.form', {
     url: '/form',
@@ -82,6 +90,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
+  .state('app.fav', {
+    url: '/trips/:city/fav-spots',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/fav.html',
+        controller: 'FavCtrl'
+      }
+    }
+  })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/form');
+  $urlRouterProvider.otherwise('/app/login');
 });

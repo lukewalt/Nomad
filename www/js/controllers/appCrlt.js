@@ -19,8 +19,8 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
     $scope.modal.hide();
   };
 
-  // Open the login modal
-  $scope.logout = function() {
+  // Open the logout modal
+  $scope.logoutModal = function() {
     $scope.modal.show();
   };
 
