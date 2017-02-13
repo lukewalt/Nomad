@@ -68,6 +68,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
+  .state('app.suggested', {
+    url: '/suggested',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/suggested.html',
+        controller: 'SugCtrl'
+      }
+    }
+  })
 
   .state('app.city', {
       url: '/trips/:city',
