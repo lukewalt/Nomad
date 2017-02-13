@@ -50,6 +50,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     controller: 'AppCtrl'
   })
 
+  .state('app.map', {
+    url: '/map',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/map.html',
+        controller: 'MapCrtl',
+      }
+    }
+  })
   .state('app.form', {
     url: '/form',
     views: {
