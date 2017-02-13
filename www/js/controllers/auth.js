@@ -31,7 +31,7 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
   $scope.doLogin = () => {
     authFactory
     .userLogin($scope.loginData.email, $scope.loginData.password)
-    .then(()=> $state.go('app.form'))
+    .then(()=> $state.go('app.form'), {}, {reload: true})
 
   }
   // Simulate a login delay. Remove this and replace with your login

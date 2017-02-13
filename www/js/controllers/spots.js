@@ -1,16 +1,18 @@
 contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, arrFactory ,firebaseFactory){
 
   $scope.currentCity = $stateParams.city
-  let destArr = [];
-  let dtArr = [];
-  let ttArr = [];
   let itin = document.getElementById('itin')
 
-  //gets spots for the day
-  firebaseFactory.getForm()
+  let curCityDest = [];
+  let dt = [];
+  let tt = [];
+
+  // firebase.database().ref('destination').orderByChild('city').equalTo($scope.currentCity)
+  firebase.database().ref('destination').on('value', () => {
+    firebaseFactory.getForm()
     .then((val) => {
       //sets all destinations to varibale
-      const allDestinations = val.data.destination
+      const allDestinations = val
       //loops over dests and only returns data matching current city
       angular.forEach(allDestinations, (v, k) => {
         if (v.city === $scope.currentCity) {
@@ -18,17 +20,23 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
           // to each object locally
           v.key = k;
           //pushes objects of currentCity to array
-          destArr.push(v)
-          dtArr.push(parseFloat(v.destTime))
-          ttArr.push(parseFloat(v.travelTime))
+          curCityDest.push(v)
+          dt.push(parseFloat(v.destTime))
+          tt.push(parseFloat(v.travelTime))
         }
       })
       //sets scope to addition function calling poplated popltd arr
-      $scope.totalTrav = arrFactory.daySum(ttArr);
-      $scope.totalDest = arrFactory.daySum(dtArr);
+      $scope.totalTrav = arrFactory.daySum(tt);
+      $scope.totalDest = arrFactory.daySum(dt);
       //array of filter objects set to scope
-      $scope.dest = destArr
+      $scope.dest = curCityDest
     })
+
+    curCityDest = [];
+    dt = [];
+    tt = [];
+  })
+  //gets spots for the day
 
 
     //UI Slide / delete / reorder
@@ -36,9 +44,6 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
         showDelete: false
       };
 
-    $scope.edit = function(item) {
-      alert('Edit Item: ' + item.id);
-    };
 
     $scope.moveItem = function(item, fromIndex, toIndex) {
       $scope.dest.splice(fromIndex, 1);
@@ -51,32 +56,29 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
       //removes from the DOM
       $scope.dest.splice($scope.dest.indexOf(item), 1);
 
+
+/*
       //re-calculates day summary
-      // firebase.database().ref('destination').on('value', function(snap){
-      //   let allObj = snap.val()
-      //   angular.forEach(allObj, (v, k) => {
-      //     if (v.city === $scope.currentCity) {
-      //       // adds unique key as a value of key/value pair {key: id}
-      //       // to each object locally
-      //       destArr = [];
-      //       dtArr = [];
-      //       ttArr = [];
-      //       v.key = k;
-      //       //pushes objects of currentCity to array
-      //       destArr.push(v)
-      //       dtArr.push(parseFloat(v.destTime))
-      //       ttArr.push(parseFloat(v.travelTime))
-      //     }
-      //   })
-      //   //sets scope to addition function calling poplated popltd arr
-      //   $scope.totalTrav = arrFactory.daySum(ttArr);
-      //   $scope.totalDest = arrFactory.daySum(dtArr);
-      //   //array of filter objects set to scope
-      //   $scope.dest = destArr
-      //
-      // })
+      firebase.database().ref('destination').on('child_changed', function(snap){
+        let allObj = snap.val()
+        angular.forEach(allObj, (v, k) => {
+          if (v.city === $scope.currentCity) {
 
+            //pushes objects of currentCity to array
+            curCityDest.push(v)
+            dt.push(parseFloat(v.destTime))
+            tt.push(parseFloat(v.travelTime))
+          }
+        })
+        //sets scope to addition function calling poplated popltd arr
+        $scope.totalTrav = arrFactory.daySum(tt);
+        $scope.totalDest = arrFactory.daySum(dt);
+        //array of filter objects set to scope
+        $scope.dest = curCityDest
 
+      })
+
+*/
     };
 
     $scope.flag = false;
