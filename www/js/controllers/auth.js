@@ -36,11 +36,14 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
     .registerUser($scope.regData.email, $scope.regData.password)
     .then(()=> $scope.closeRegister())
     .then(()=> $state.go('app.form'))
-    console.log('uid', firebase.auth().currentUser)
+    console.log('currentUser', firebase.auth().currentUser)
 
   }
   $scope.doLogin = () => {
-    console.log('login fired', $scope.loginData)
+    authFactory
+    .userLogin($scope.loginData.email, $scope.loginData.password)
+    .then(()=> $state.go('app.form'))
+    console.log('currentUser', firebase.auth().currentUser)
 
   }
   // Simulate a login delay. Remove this and replace with your login

@@ -4,6 +4,9 @@ angular.module('starter.factories', [])
   return {
     registerUser: (email, pass) => {
       return $q.resolve(firebase.auth().createUserWithEmailAndPassword(email, pass))
+    },
+    userLogin: (email, pass) => {
+      return $q.resolve(firebase.auth().signInWithEmailAndPassword(email, pass))
     }
   }
 })
