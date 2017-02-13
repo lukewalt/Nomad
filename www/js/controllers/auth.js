@@ -1,13 +1,3 @@
-
-firebase.initializeApp({
-    apiKey: "AIzaSyDQRfBKyHDrPXJYhxnFi5r6opLorg0K5wY",
-    authDomain: "frontend-cap.firebaseapp.com",
-    databaseURL: "https://frontend-cap.firebaseio.com",
-    storageBucket: "frontend-cap.appspot.com",
-    messagingSenderId: "468124490040"
-})
-
-
 contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $state, authFactory) {
 
   // Create the register modal that we will use later
@@ -36,14 +26,12 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
     .registerUser($scope.regData.email, $scope.regData.password)
     .then(()=> $scope.closeRegister())
     .then(()=> $state.go('app.form'))
-    .then(()=> console.log('currentUser', firebase.auth().currentUser))
 
   }
   $scope.doLogin = () => {
     authFactory
     .userLogin($scope.loginData.email, $scope.loginData.password)
     .then(()=> $state.go('app.form'))
-    .then(()=>console.log('currentUser', firebase.auth().currentUser))
 
   }
   // Simulate a login delay. Remove this and replace with your login

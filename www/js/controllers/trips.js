@@ -3,6 +3,7 @@ contrl.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
   // empty array will store all city values from object
   let allCities = [];
 
+  console.log("uid",firebase.auth().currentUser);
   //gets all destinations and sets them to values
   firebaseFactory.getForm()
     .then((val) => {

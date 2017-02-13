@@ -7,7 +7,21 @@ angular.module('starter.factories', [])
     },
     userLogin: (email, pass) => {
       return $q.resolve(firebase.auth().signInWithEmailAndPassword(email, pass))
+    },
+    getUser: () => {
+      return $q((resolve, reject) => {
+        // http://stackoverflow.com/questions/37370224/firebase-stop-listening-onauthstatechanged
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe()
+          if (user) {
+            resolve(user)
+          } else {
+            reject(console.log('reject'))
+          }
+        })
+      })
     }
+
   }
 })
 
