@@ -1,7 +1,8 @@
-contrl.controller('FormCtrl', function($scope, $location, firebaseFactory) {
-  //empty object
-  $scope.day = {}
+contrl.controller('FormCtrl', function($scope, $location, $ionicModal, firebaseFactory) {
 
+
+  //ng-modal obj for user input
+  $scope.day = {}
   //takes input values and creates a "day" object in firebase
   $scope.createForm = () => {
     $scope.day.uid = firebase.auth().currentUser.uid;

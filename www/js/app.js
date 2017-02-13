@@ -28,27 +28,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
 .config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
 
+  .state('auth', {
+    url: '/auth',
+    abstract: true,
+    templateUrl: 'templates/auth.html',
+    controller: 'AuthCtrl'
+  })
+  .state('auth.login', {
+    url: '/login',
+    views: {
+      'authContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'AuthCtrl'
+      }
+    }
+  })
     .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-  .state('app.login', {
-    url: '/login',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller: 'AuthCtrl'
-      }
-    }
-  })
+
   .state('app.form', {
     url: '/form',
     views: {
       'menuContent': {
         templateUrl: 'templates/form.html',
-        controller: 'FormCtrl'
+        controller: 'FormCtrl',
       }
     }
   })
@@ -100,5 +107,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     }
   })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/auth/login');
 });

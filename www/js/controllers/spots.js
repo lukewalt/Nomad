@@ -1,4 +1,4 @@
-contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, arrFactory ,firebaseFactory){
+contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, arrFactory ,firebaseFactory){
 
   $scope.currentCity = $stateParams.city
   let destArr = [];
@@ -87,6 +87,10 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, arrFactor
       .then($timeout(() => {
         $scope.flag = false;
       },3500))
+    }
+
+    $scope.addAnotherSpot = () => {
+      $state.go('app.form');
     }
 
 
