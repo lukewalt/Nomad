@@ -1,14 +1,4 @@
-
-firebase.initializeApp({
-    apiKey: "AIzaSyDQRfBKyHDrPXJYhxnFi5r6opLorg0K5wY",
-    authDomain: "frontend-cap.firebaseapp.com",
-    databaseURL: "https://frontend-cap.firebaseio.com",
-    storageBucket: "frontend-cap.appspot.com",
-    messagingSenderId: "468124490040"
-})
-
-
-contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $location) {
+contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http, $state, authFactory) {
 
   // Create the register modal that we will use later
   $ionicModal.fromTemplateUrl('templates/register.html', {
@@ -32,12 +22,16 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
 
   // Perform the login action when the user submits the login form
   $scope.doRegister = () => {
-    console.log('login fired', $scope.regData)
-        $scope.modal.hide();
+    authFactory
+    .registerUser($scope.regData.email, $scope.regData.password)
+    .then(()=> $scope.closeRegister())
+    .then(()=> $state.go('app.form'))
 
   }
   $scope.doLogin = () => {
-    console.log('login fired', $scope.loginData)
+    authFactory
+    .userLogin($scope.loginData.email, $scope.loginData.password)
+    .then(()=> $state.go('app.form'), {}, {reload: true})
 
   }
   // Simulate a login delay. Remove this and replace with your login

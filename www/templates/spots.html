@@ -8,10 +8,10 @@
         <div class="buttons">
           <button class="button button-icon icon ion-ios-minus-outline"
             ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
-
-
         </div>
+
         <h1 class="title">{{currentCity}}</h1>
+        
         <div class="buttons">
           <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
               Reorder
@@ -39,6 +39,8 @@
       </ion-list>
 
     </div>
+    <button class="button button-block button-energized" ng-click="addAnotherSpot()"> Add Another</button>
+
     <div class="card">
       <div class="item item-divider">
         Day Summary

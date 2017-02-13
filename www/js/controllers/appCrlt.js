@@ -1,4 +1,4 @@
-contrl.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+contrl.controller('AppCtrl', function($scope, $ionicModal, $state, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -16,13 +16,21 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // Triggered in the login modal to close it
   $scope.closeLogout = function() {
-    $scope.modal.hide();
+    firebase.auth().signOut()
+
+    .then(()=>$scope.modal.hide())
+    .then(()=> $state.go('auth.login'))
+    .then(()=> console.log('currentUser', firebase.auth().currentUser ))
   };
 
   // Open the logout modal
   $scope.logoutModal = function() {
     $scope.modal.show();
   };
+
+  $scope.goToTrips = ()=>{
+    $state.go('app.trips');
+  }
 
 
 })

@@ -1,38 +1,43 @@
 contrl.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
 
-  $scope.currentCity = $stateParams.city
-  const infoRef = firebase.database().ref('info');
-  let infoArr = [];
-  let infoKey = [];
+  $scope.currentCity = $stateParams.city;
+  // $scope.currentUser = firebase.auth().currentUser.uid;
+  console.log($scope.currentUser);
 
-  $scope.obj = {
-    city : $scope.currentCity
-  };
+  const infoRef = firebase.database().ref('info');
+
+  $scope.obj = {};
 
   $scope.addInfo = () => {
+    $scope.obj.city = $scope.currentCity;
+    $scope.obj.uid = firebase.auth().currentUser.uid;
 
     infoRef.push($scope.obj)
-    .then(() => $scope.obj.infonote = null )
+    .then(() => $scope.obj.infonote = "")
   }
 
-  firebaseFactory.getInfo()
-  .then((val) => {
-    //gets all objects from info
-    const infonotes = val.data
-    angular.forEach(infonotes, (v, k) => {
-      //extracts only notes in current city
-      if (v.city === $scope.currentCity) {
-        infoArr.push(v)
-        infoKey.push(k)
-      }
-
+  infoRef.on("child_added", () => {
+    firebaseFactory.getInfo()
+    .then((data)=>{
+      $scope.data = data
+      $scope.$apply()
     })
-    $scope.info = infoArr
-    console.log($scope.info);
-    $scope.infoKey = infoKey;
-    console.log($scope.infoKey);
-
-
   })
+  infoRef.on("child_removed", () => {
+    firebaseFactory.getInfo()
+    .then((data)=>{
+      $scope.data = data
+      $scope.$apply()
+    })
+  })
+
+  $scope.removeInfoNote = (key) => {
+    firebaseFactory.deleteInfo(key)
+
+  }
+
+
+
+
 
 })

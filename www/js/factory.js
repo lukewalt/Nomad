@@ -4,7 +4,24 @@ angular.module('starter.factories', [])
   return {
     registerUser: (email, pass) => {
       return $q.resolve(firebase.auth().createUserWithEmailAndPassword(email, pass))
+    },
+    userLogin: (email, pass) => {
+      return $q.resolve(firebase.auth().signInWithEmailAndPassword(email, pass))
+    },
+    getUser: () => {
+      return $q((resolve, reject) => {
+        // http://stackoverflow.com/questions/37370224/firebase-stop-listening-onauthstatechanged
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe()
+          if (user) {
+            resolve(user)
+          } else {
+            reject(console.log('reject'))
+          }
+        })
+      })
     }
+
   }
 })
 
@@ -13,20 +30,26 @@ angular.module('starter.factories', [])
     postForm: (form) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },
-    getForm: () => {
-      return $http.get(`https://frontend-cap.firebaseio.com/.json`)
+    getCities: () => {
+      return $http.get(`https://frontend-cap.firebaseio.com/destination.json`)
       .then((val)=> val )
+    },
+    getForm: () => {
+      return firebase.database().ref('destination').once('value')
+      .then((snap)=> snap.val())
     },
     deleteForm: (key) => {
-      return $http.delete(`https://frontend-cap.firebaseio.com/destination/${key}/.json`);
+      return firebase.database().ref('destination').child(key).remove()
     },
-    postInfo: (infonote) => {
-      return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/info.json`, infonote));
+    deleteInfo: (key) => {
+      return firebase.database().ref('info').child(key).remove()
     },
+
     getInfo: () => {
-      return $http.get(`https://frontend-cap.firebaseio.com/info.json`)
-      .then((val)=> val )
+      return firebase.database().ref('info').once('value')
+      .then((snap)=> snap.val())
     },
+
     getFavs: () => {
       return $http.get(`https://frontend-cap.firebaseio.com/fav-spots.json`)
       .then((val)=> val )
