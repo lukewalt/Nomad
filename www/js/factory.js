@@ -7,19 +7,6 @@ angular.module('starter.factories', [])
     },
     userLogin: (email, pass) => {
       return $q.resolve(firebase.auth().signInWithEmailAndPassword(email, pass))
-    },
-    getUser: () => {
-      return $q((resolve, reject) => {
-        // http://stackoverflow.com/questions/37370224/firebase-stop-listening-onauthstatechanged
-        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-          unsubscribe()
-          if (user) {
-            resolve(user)
-          } else {
-            reject(console.log('reject'))
-          }
-        })
-      })
     }
 
   }
@@ -50,12 +37,15 @@ angular.module('starter.factories', [])
       .then((snap)=> snap.val())
     },
 
-    getFavs: () => {
-      return $http.get(`https://frontend-cap.firebaseio.com/fav-spots.json`)
-      .then((val)=> val )
-    },
     postFav: (item) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/fav-spots.json`, item));
+    },
+    getFavs: () => {
+      return firebase.database().ref('fav-spots').once('value')
+      .then((snap)=> snap.val())
+    },
+    deleteFav: (key) => {
+      return firebase.database().ref('fav-spots').child(key).remove()
     }
   }
 })

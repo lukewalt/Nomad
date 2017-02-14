@@ -3,11 +3,14 @@
 
     <div class="list card">
 
-      <div class="list" ng-repeat="f in favSpots">
+      <div class="list" ng-repeat="(k, v) in data" ng-if="currentCity === v.city">
           <div class="item item-thumbnail-left" >
             <img src="http://www.florida-palm-trees.com/wp-content/uploads/2010/02/palm-trees1.jpg">
-            <h2>{{f.destination}}</h2>
+            <h2>{{v.destination}}</h2>
+            <button class="button button-icon icon ion-ios-close-empty" ng-click="removeFav(k)"></button>
+            <p>{{v.city}}</p>
           </div>
+
       </div>
 
     </div>
