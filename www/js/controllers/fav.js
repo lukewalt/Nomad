@@ -2,19 +2,28 @@ contrl.controller('FavCtrl', function($scope, $stateParams, arrFactory ,firebase
 
   $scope.currentCity = $stateParams.city
   let favArr = [];
+  const favRef = firebase.database().ref('fav-spots')
 
-
-  firebaseFactory.getFavs()
-  .then((val)=>{
-    const allFavs = val.data
-    angular.forEach(allFavs, (v, k) => {
-      if (v.city === $scope.currentCity) {
-        console.dir(allFavs);
-        v.favSpotKey = k;
-        favArr.push(v)
-      }
+  // gets data when a favorite spot is added
+  favRef.on("child_added", () => {
+    firebaseFactory.getFavs()
+    .then((data)=>{
+      $scope.data = data
+      $scope.$apply()
     })
-    $scope.favSpots = favArr;
   })
+
+  //removes remove favorite spot from firebase
+  $scope.removeFav = (k) => { firebaseFactory.deleteFav(k) }
+
+  //reupdates data when fav is deleted
+  favRef.on("child_removed", () => {
+    firebaseFactory.getFavs()
+    .then((data)=>{
+      $scope.data = data
+      $scope.$apply()
+    })
+  })
+
 
 })

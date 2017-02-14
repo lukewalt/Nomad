@@ -90,10 +90,9 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
         $scope.flag = false;
       },3500))
     }
-
+    //redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
       $state.go('app.form');
     }
-
 
 })
