@@ -26,15 +26,19 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="lib/firebase/firebase.js"></script>
     <script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw"></script>
 
     <script src="js/factory.js"></script>
     <script src="js/contrl.js"></script>
+    <script src="js/controllers/map.js"></script>
     <script src="js/controllers/appCrlt.js"></script>
     <script src="js/controllers/auth.js"></script>
     <script src="js/controllers/form.js"></script>
@@ -44,11 +48,9 @@
     <script src="js/controllers/spots.js"></script>
     <script src="js/controllers/info.js"></script>
     <script src="js/controllers/fav.js"></script>
-    <script src="js/controllers/map.js"></script>
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn5c_X0E-L1a9AJ8V44v20ds3e3qh7G44&callback=initMap"></script> -->
   </head>
 
   <body ng-app="starter">
-    <ion-nav-view></ion-nav-view>
+      <ion-nav-view></ion-nav-view>
   </body>
 </html>

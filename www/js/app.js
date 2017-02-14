@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.factories'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -55,7 +55,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     views: {
       'menuContent': {
         templateUrl: 'templates/map.html',
-        controller: 'MapCrtl',
+        controller: 'GoogleMapCtrl'
       }
     }
   })
@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     views: {
       'menuContent': {
         templateUrl: 'templates/form.html',
-        controller: 'FormCtrl',
+        controller: 'FormCtrl'
       }
     }
   })
