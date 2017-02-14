@@ -22,19 +22,19 @@ contrl.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
       $scope.data = data
       $scope.$apply()
     })
-  })
+  });
+
+  //removes infonote from firebase
+  $scope.removeInfoNote = (key) => { firebaseFactory.deleteInfo(key) };
+
   infoRef.on("child_removed", () => {
     firebaseFactory.getInfo()
     .then((data)=>{
       $scope.data = data
       $scope.$apply()
     })
-  })
+  });
 
-  $scope.removeInfoNote = (key) => {
-    firebaseFactory.deleteInfo(key)
-
-  }
 
 
 
