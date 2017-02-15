@@ -11,23 +11,23 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
     // establishes current options for current view
     let mapOptions = {
       center: currentLatLng,
-      zoom: 11,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.HYBRID
     };
 
     //NEW MAP:  sets options and display target for a new map to scope
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+
+
     //DROPS MARKER: drops marker on current location
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-      var marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
           map: $scope.map,
           animation: google.maps.Animation.DROP,
           position: currentLatLng
       });
-      var infoWindow = new google.maps.InfoWindow({
-          content: "Here I am!"
-      });
+
       google.maps.event.addListener(marker, 'click', function () {
           infoWindow.open($scope.map, marker);
       });
@@ -43,27 +43,76 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
 
   //attaches autho complete to imnput field
   const userSearchField = document.getElementById('autocomplete')
+  $scope.clearSearchField = () => { userSearchField.value = " " }
   const ac = new google.maps.places.Autocomplete(userSearchField);
+
   google.maps.event.addListener(ac, 'place_changed', function() {
     let place = ac.getPlace();
     console.log(place);
-    // google.maps.event.addListenerOnce($scope.map, 'click', function(){
-    //   var marker = new google.maps.Marker({
-    //       map: $scope.map,
-    //       animation: google.maps.Animation.DROP,
-    //       position: place
-    //   });
-    //   var infoWindow = new google.maps.InfoWindow({
-    //       content: "Here I am!"
-    //   });
-    //   google.maps.event.addListener(marker, 'click', function () {
-    //       infoWindow.open($scope.map, marker);
-    //   });
-    // });
+    searchMarker = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())
+    dropPin(searchMarker, place);
 
   })
 
-  $scope.clearSearchField = () => { userSearchField.value = " " }
+  function dropPin(location, place) {
+    console.log(location);
+
+      var marker = new google.maps.Marker({
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        position: location
+      });
+
+      let infoWindow = new google.maps.InfoWindow({
+          content: renderInfoWindow(place.name, place.formatted_address, place.formatted_phone_number, place.website)
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        infoWindow.open($scope.map, marker);
+      });
+  }
+
+  function renderInfoWindow(name, adr, phn ,web) {
+
+    let spot = {}
+
+    let div = document.createElement('div');
+
+    let h = document.createElement('h3');
+    h.innerText = `${name}`;
+    div.append(h);
+    spot.name = name
+
+    let add = document.createElement('p');
+    add.innerText = `${adr}`;
+    div.append(add)
+
+    let phone = document.createElement('p');;
+    phone.innerText = `${phn}`;
+    div.append(phone);
+
+    let website = document.createElement('a');
+    website.setAttribute('href', `${web}`);
+    website.innerText = "website";
+    div.append(website);
+
+    let b = document.createElement('br')
+    div.append(b)
+
+    let button = document.createElement('button');
+    button.innerText = 'Add';
+    button.addEventListener('click', () => {
+      // let place2 = JSON.parse(JSON.stringify(place))
+      spot.uid = firebase.auth().currentUser.uid;
+      firebase.database().ref('spots').push(spot)
+
+    })
+    div.append(button);
+
+    return div;
+  }
+
+
 
 
 });
