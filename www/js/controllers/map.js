@@ -71,45 +71,71 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
         infoWindow.open($scope.map, marker);
       });
   }
-
+  //creates custom infowindow and obj to push user choice to their spot
   function renderInfoWindow(name, adr, phn ,web) {
-
     let spot = {}
 
-    let div = document.createElement('div');
+    let infoView = document.createElement('form');
 
-    let h = document.createElement('h3');
-    h.innerText = `${name}`;
-    div.append(h);
-    spot.name = name
+      let h = document.createElement('h3');
+      h.innerText = `${name}`;
+      infoView.append(h);
+      spot.name = name
 
-    let add = document.createElement('p');
-    add.innerText = `${adr}`;
-    div.append(add)
+      let add = document.createElement('p');
+      add.innerText = `${adr}`;
+      infoView.append(add)
 
-    let phone = document.createElement('p');;
-    phone.innerText = `${phn}`;
-    div.append(phone);
+      let phone = document.createElement('p');;
+      phone.innerText = `${phn}`;
+      infoView.append(phone);
 
-    let website = document.createElement('a');
-    website.setAttribute('href', `${web}`);
-    website.innerText = "website";
-    div.append(website);
+      let website = document.createElement('a');
+      website.setAttribute('href', `${web}`);
+      website.innerText = "website";
+      infoView.append(website);
 
     let b = document.createElement('br')
-    div.append(b)
+    infoView.append(b)
 
-    let button = document.createElement('button');
-    button.innerText = 'Add';
-    button.addEventListener('click', () => {
-      // let place2 = JSON.parse(JSON.stringify(place))
-      spot.uid = firebase.auth().currentUser.uid;
-      firebase.database().ref('spots').push(spot)
+    let footer = document.createElement('div')
+    footer.setAttribute('class', 'infoViewFooter')
 
-    })
-    div.append(button);
 
-    return div;
+      let timeLabel = document.createElement('p')
+      timeLabel.innerText = "Time Spent"
+      footer.append(timeLabel)
+
+      const arr = ['', 0.5, 1, 2, 3, 4, 5];
+      let select = document.createElement('select')
+      select.setAttribute('required', 'required')
+
+      for (var i = 0; i < arr.length; i++) {
+        let option = document.createElement('option');
+           option.value = arr[i];
+           option.text = arr[i];
+           select.append(option);
+      }
+      footer.append(select)
+
+      let button = document.createElement('button');
+      button.setAttribute('class', 'btn');
+      button.innerText = 'Add';
+      button.addEventListener('click', () => {
+        // let place2 = JSON.parse(JSON.stringify(place))
+        spot.timeSpent = select.value
+        spot.uid = firebase.auth().currentUser.uid;
+        firebase.database().ref('spots').push(spot)
+        .then(()=>{
+
+        })
+
+      })
+      footer.append(button);
+
+    infoView.append(footer)
+
+    return infoView;
   }
 
 
