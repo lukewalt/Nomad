@@ -14,6 +14,10 @@ angular.module('starter.factories', [])
 
 .factory('firebaseFactory', ($q, $http) => {
   return {
+    distMtx: () => {
+      return $http.get(`/googlemapsapi/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJNT0D7YpmZIgRW_JTBDL7Iwg&destinations=place_id:ChIJuY25rS9kZIgRN5MuBAa-JY4&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
+      .then((val) => console.log(val.data.rows))
+    },
     postForm: (form) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },

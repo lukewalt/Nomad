@@ -1,4 +1,6 @@
-contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation) {
+contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation, firebaseFactory) {
+
+  firebaseFactory.distMtx()
 
   //sets high accuracy
   let options = {timeout: 10000, enableHighAccuracy: true};
@@ -17,6 +19,42 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
 
     //NEW MAP:  sets options and display target for a new map to scope
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    function CenterControl(controlDiv, map) {
+
+      // Set CSS for the control border.
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.border = '2px solid #fff';
+      controlUI.style.borderRadius = '3px';
+      controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginBottom = '22px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Click to recenter the map';
+      controlDiv.appendChild(controlUI);
+
+      // Set CSS for the control interior.
+      var controlText = document.createElement('div');
+      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+      controlText.style.fontSize = '16px';
+      controlText.style.lineHeight = '38px';
+      controlText.style.paddingLeft = '5px';
+      controlText.style.paddingRight = '5px';
+      controlText.innerHTML = 'Center Map';
+      controlUI.appendChild(controlText);
+
+      // Setup the click event listeners: simply set the map to Chicago.
+      controlUI.addEventListener('click', function() {
+        $scope.map.setCenter(currentLatLng);
+      });
+    }
+
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
+    centerControlDiv.index = 1;
+    $scope.map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 
 
@@ -133,8 +171,8 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
       button.setAttribute('class', 'btn');
       button.innerText = 'Add';
       button.addEventListener('click', () => {
-        origins.push(o)
 
+        spot.pid = o
         spot.timeSpent = select.value
         spot.uid = firebase.auth().currentUser.uid;
         firebase.database().ref('spots').push(spot)
@@ -143,7 +181,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
           if (select.value > 0) {
             alert('You Added ' + spot.name + ' to spots')
           }
-          $scope.origins = origins;
         })
       })
       footer.append(button);
@@ -152,7 +189,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
 
     return infoView;
   }
-
 
 
 
