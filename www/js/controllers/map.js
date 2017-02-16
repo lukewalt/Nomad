@@ -70,6 +70,11 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
       google.maps.event.addListener(marker, 'click', function () {
         infoWindow.open($scope.map, marker);
       });
+      google.maps.event.addListener(marker, 'dblclick', function () {
+        console.log("db");
+        marker.setMap(null);
+      });
+
   }
   //creates custom infowindow and obj to push user choice to their spot
   function renderInfoWindow(name, adr, phn ,web) {
@@ -127,8 +132,9 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
         spot.uid = firebase.auth().currentUser.uid;
         firebase.database().ref('spots').push(spot)
         .then(()=>{
-
+          alert('You Added ' + spot.name + ' to spots')
         })
+
 
       })
       footer.append(button);
