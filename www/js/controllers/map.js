@@ -64,20 +64,26 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
       });
 
       let infoWindow = new google.maps.InfoWindow({
-          content: renderInfoWindow(place.name, place.formatted_address, place.formatted_phone_number, place.website)
+          content: renderInfoWindow(place.name, place.formatted_address, place.formatted_phone_number, place.website, place.place_id)
       });
 
       google.maps.event.addListener(marker, 'click', function () {
         infoWindow.open($scope.map, marker);
       });
+
       google.maps.event.addListener(marker, 'dblclick', function () {
         console.log("db");
         marker.setMap(null);
       });
 
   }
+
+  let origins = [];
+
+
   //creates custom infowindow and obj to push user choice to their spot
-  function renderInfoWindow(name, adr, phn ,web) {
+  function renderInfoWindow(name, adr, phn ,web, o) {
+    console.log(o);
     let spot = {}
 
     let infoView = document.createElement('form');
@@ -107,7 +113,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
     footer.setAttribute('class', 'infoViewFooter')
 
 
-      let timeLabel = document.createElement('p')
+      let timeLabel = document.createElement('h5')
       timeLabel.innerText = "Time Spent"
       footer.append(timeLabel)
 
@@ -127,15 +133,18 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation)
       button.setAttribute('class', 'btn');
       button.innerText = 'Add';
       button.addEventListener('click', () => {
-        // let place2 = JSON.parse(JSON.stringify(place))
+        origins.push(o)
+
         spot.timeSpent = select.value
         spot.uid = firebase.auth().currentUser.uid;
         firebase.database().ref('spots').push(spot)
+
         .then(()=>{
-          alert('You Added ' + spot.name + ' to spots')
+          if (select.value > 0) {
+            alert('You Added ' + spot.name + ' to spots')
+          }
+          $scope.origins = origins;
         })
-
-
       })
       footer.append(button);
 
