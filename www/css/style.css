@@ -24,7 +24,7 @@ a {
 }
 
 .infoViewFooter {
-  display: inline;
+  /*display: flex;*/
 }
 
 .btn {
@@ -34,5 +34,18 @@ a {
   border: 1px solid white;
   height: 27px;
   width: 70px;
+  margin: 0 8%;
+
+}
+
+.see-day-btn {
+  visibility: hidden;
+}
+
+.clear-search {
+  margin: 0 54px;
+}
+
+.nameit {
 
 }

@@ -1,0 +1,17 @@
+<ion-view view-title="Name Trip">
+  <ion-content>
+
+    <div class="card nameit">
+      <form class="list" ng-submit="getTrip()">
+        <label class="item item-input">
+          <input type="text" placeholder="Name Your Trip" ng-model="trip.name"  ng-minlength="3" required>
+        </label>
+        <button class="button button-full button-energized" ng-disabled="credentialsForm.$invalid">
+          GO!
+        </button>
+      </form>
+
+    </div>
+
+  </ion-content>
+</ion-view>

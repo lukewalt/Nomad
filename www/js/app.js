@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     url: '/auth',
     abstract: true,
     templateUrl: 'templates/auth.html',
-    controller: 'AuthCtrl'
+    controller: ''
   })
   .state('auth.login', {
     url: '/login',
@@ -43,30 +43,35 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     }
   })
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.map', {
+  .state('map', {
     url: '/map',
+    abstract: true,
+    templateUrl: 'templates/mapView.html',
+    controller: ''
+  })
+  .state('map.nameit', {
+    url: '/nameit',
     views: {
-      'menuContent': {
+      'mapContent': {
+        templateUrl: 'templates/nameit.html',
+        controller: 'NameitCtrl'
+      }
+    }
+  })
+  .state('map.view', {
+    url: '/view/:trip',
+    views: {
+      'mapContent': {
         templateUrl: 'templates/map.html',
         controller: 'GoogleMapCtrl'
       }
     }
   })
-  .state('app.form', {
-    url: '/form',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/form.html',
-        controller: 'FormCtrl'
-      }
-    }
+    .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/menu.html',
+    controller: 'AppCtrl'
   })
   .state('app.trips', {
     url: '/trips',

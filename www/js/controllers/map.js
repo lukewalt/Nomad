@@ -1,6 +1,9 @@
-contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation, firebaseFactory) {
+contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordovaGeolocation, gooGeoFactory, btnFactory) {
 
-  firebaseFactory.distMtx()
+  // gooGeoFactory.distMtx()
+  $scope.goToMenu = ()=>{
+    $state.go('app.trips')
+  }
 
   //sets high accuracy
   let options = {timeout: 10000, enableHighAccuracy: true};
@@ -10,6 +13,8 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
 
     //sets device location to a google lat-lng and saves it as a variable
     let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    // gooGeoFactory.geoCode(position.coords.latitude, position.coords.longitude)
+
     // establishes current options for current view
     let mapOptions = {
       center: currentLatLng,
@@ -17,45 +22,9 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
       mapTypeId: google.maps.MapTypeId.HYBRID
     };
 
+
     //NEW MAP:  sets options and display target for a new map to scope
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    function CenterControl(controlDiv, map) {
-
-      // Set CSS for the control border.
-      var controlUI = document.createElement('div');
-      controlUI.style.backgroundColor = '#fff';
-      controlUI.style.border = '2px solid #fff';
-      controlUI.style.borderRadius = '3px';
-      controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-      controlUI.style.cursor = 'pointer';
-      controlUI.style.marginBottom = '22px';
-      controlUI.style.textAlign = 'center';
-      controlUI.title = 'Click to recenter the map';
-      controlDiv.appendChild(controlUI);
-
-      // Set CSS for the control interior.
-      var controlText = document.createElement('div');
-      controlText.style.color = 'rgb(25,25,25)';
-      controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-      controlText.style.fontSize = '16px';
-      controlText.style.lineHeight = '38px';
-      controlText.style.paddingLeft = '5px';
-      controlText.style.paddingRight = '5px';
-      controlText.innerHTML = 'Center Map';
-      controlUI.appendChild(controlText);
-
-      // Setup the click event listeners: simply set the map to Chicago.
-      controlUI.addEventListener('click', function() {
-        $scope.map.setCenter(currentLatLng);
-      });
-    }
-
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
-    centerControlDiv.index = 1;
-    $scope.map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-
 
 
     //DROPS MARKER: drops marker on current location
@@ -72,6 +41,18 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
     });
 
 
+    //SEE Day:
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new btnFactory.CenterControl(centerControlDiv, $scope.map);
+    centerControlDiv.index = 1;
+    centerControlDiv.setAttribute('class', 'see-day-btn')
+    centerControlDiv.setAttribute('id', 'goToDay')
+    centerControlDiv.addEventListener('click', function() {
+      $state.go('app.spots')
+    });
+    $scope.map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+
   },
   //runs if cordova geolocation doesnt get current location
   function(error){
@@ -82,8 +63,8 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
   //attaches autho complete to imnput field
   const userSearchField = document.getElementById('autocomplete')
   $scope.clearSearchField = () => { userSearchField.value = " " }
-  const ac = new google.maps.places.Autocomplete(userSearchField);
 
+  const ac = new google.maps.places.Autocomplete(userSearchField);
   google.maps.event.addListener(ac, 'place_changed', function() {
     let place = ac.getPlace();
     console.log(place);
@@ -116,20 +97,17 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
 
   }
 
-  let origins = [];
-
 
   //creates custom infowindow and obj to push user choice to their spot
   function renderInfoWindow(name, adr, phn ,web, o) {
     console.log(o);
     let spot = {}
 
-    let infoView = document.createElement('form');
+    let infoView = document.createElement('div');
 
       let h = document.createElement('h3');
       h.innerText = `${name}`;
       infoView.append(h);
-      spot.name = name
 
       let add = document.createElement('p');
       add.innerText = `${adr}`;
@@ -144,15 +122,36 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
       website.innerText = "website";
       infoView.append(website);
 
+      let info = document.createElement('button');
+      info.innerText = 'i';
+      info.setAttribute('class', 'btn');
+
+      info.addEventListener('click', () => {
+        spot.details = `${name} : ${adr} : ${phn} : ${web}`
+        spot.uid = firebase.auth().currentUser.uid;
+        spot.trip = $stateParams.trip
+        firebase.database().ref('info').push(spot)
+
+        .then(()=>{
+          alert('You Added ' + name + ' to info')
+          document.getElementById('goToDay').className = ''
+        })
+        .then(()=>{
+          spots = {}
+          console.log(spots);
+        })
+      })
+      infoView.append(info);
+
     let b = document.createElement('br')
     infoView.append(b)
 
-    let footer = document.createElement('div')
+    let footer = document.createElement('form')
     footer.setAttribute('class', 'infoViewFooter')
 
 
       let timeLabel = document.createElement('h5')
-      timeLabel.innerText = "Time Spent"
+      timeLabel.innerText = "Travel Time"
       footer.append(timeLabel)
 
       const arr = ['', 0.5, 1, 2, 3, 4, 5];
@@ -167,19 +166,38 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $cordovaGeolocation,
       }
       footer.append(select)
 
+      let travelTime = document.createElement('h5')
+      travelTime.innerText = "Time Spent"
+      footer.append(travelTime)
+
+      const arr2 = ['', 1, 2, 3, 4, 5];
+      let select2 = document.createElement('select')
+      select2.setAttribute('required', 'required')
+
+      for (var i = 0; i < arr2.length; i++) {
+        let option2 = document.createElement('option');
+           option2.value = arr2[i];
+           option2.text = arr2[i];
+           select2.append(option2);
+      }
+      footer.append(select2)
+
       let button = document.createElement('button');
       button.setAttribute('class', 'btn');
       button.innerText = 'Add';
       button.addEventListener('click', () => {
-
+        spot.name = name
         spot.pid = o
-        spot.timeSpent = select.value
+        spot.destTime = select2.value
+        spot.travelTime = select.value
+        spot.trip = $stateParams.trip
         spot.uid = firebase.auth().currentUser.uid;
         firebase.database().ref('spots').push(spot)
 
         .then(()=>{
           if (select.value > 0) {
             alert('You Added ' + spot.name + ' to spots')
+            document.getElementById('goToDay').className = ''
           }
         })
       })

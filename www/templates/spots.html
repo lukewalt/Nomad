@@ -24,7 +24,7 @@
         <ion-item ng-repeat="item in dest"
                   item="item"
                    class="item-remove-animate">
-          {{item.travelTime}} hrs - {{item.destination}} - {{item.destTime}} hrs
+          {{item.travelTime}} hrs - {{item.name}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item, item.key)">
           </ion-delete-button>

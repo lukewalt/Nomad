@@ -2,20 +2,22 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
 
   $scope.currentCity = $stateParams.city
   let itin = document.getElementById('itin')
+  firebase.auth().currentUser.uid
 
   let curCityDest = [];
   let dt = [];
   let tt = [];
 
   // firebase.database().ref('destination').orderByChild('city').equalTo($scope.currentCity)
-  firebase.database().ref('destination').on('value', () => {
+  firebase.database().ref('spots').on('value', () => {
     firebaseFactory.getForm()
     .then((val) => {
       //sets all destinations to varibale
       const allDestinations = val
+      console.log(allDestinations);
       //loops over dests and only returns data matching current city
       angular.forEach(allDestinations, (v, k) => {
-        if (v.city === $scope.currentCity) {
+        if (v.uid === firebase.auth().currentUser.uid) {
           // adds unique key as a value of key/value pair {key: id}
           // to each object locally
           v.key = k;
@@ -92,7 +94,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
     }
     //redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
-      $state.go('app.form');
+      $state.go('map.view');
     }
 
 })
