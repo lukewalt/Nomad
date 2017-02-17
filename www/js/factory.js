@@ -31,7 +31,7 @@ angular.module('starter.factories', [])
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },
     getCities: () => {
-      return $http.get(`https://frontend-cap.firebaseio.com/destination.json`)
+      return $http.get(`https://frontend-cap.firebaseio.com/spots.json`)
       .then((val)=> val )
     },
     getForm: () => {
