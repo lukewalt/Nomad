@@ -1,4 +1,4 @@
-contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $location, $cordovaGeolocation, gooGeoFactory, btnFactory) {
+contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $location, $cordovaGeolocation, gooGeoFactory) {
 
   // gooGeoFactory.distMtx()
   $scope.goToMenu = ()=>{
@@ -79,7 +79,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
         infoWindow.open($scope.map, marker);
       });
 
-      google.maps.event.addListener(marker, 'idle', function () {
+      google.maps.event.addListener(marker, 'dblclick', function () {
         console.log("db");
         marker.setMap(null);
       });

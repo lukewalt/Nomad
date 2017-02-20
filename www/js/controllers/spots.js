@@ -1,8 +1,12 @@
 contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location, $state, arrFactory ,firebaseFactory){
 
   $scope.currentTrip = $stateParams.trip;
-  
-  let curCityDest = [];
+  console.log("current trip : " , $scope.currentTrip);
+  $scope.flag = false;
+  $scope.user = firebase.auth().currentUser.uid
+  const currentTrip = $stateParams.trip;
+
+  let curSpots = [];
   let dt = [];
   let tt = [];
 
@@ -14,24 +18,28 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
       console.log(allDestinations);
       //loops over dests and only returns data matching current city
       angular.forEach(allDestinations, (v, k) => {
-        if (v.uid === firebase.auth().currentUser.uid) {
-          // adds unique key as a value of key/value pair {key: id}
-          // to each object locally
-          v.key = k;
-          //pushes objects of currentCity to array
-          curCityDest.push(v)
-          dt.push(parseFloat(v.destTime))
-          tt.push(parseFloat(v.travelTime))
+        console.log(currentTrip, v.trip);
+        if (v.trip === currentTrip) {
+
+            // adds unique key as a value of key/value pair {key: id}
+            // to each object locally
+            v.key = k;
+            //pushes objects of currentCity to array
+            curSpots.push(v)
+            dt.push(parseFloat(v.destTime))
+            tt.push(parseFloat(v.travelTime))
+
         }
       })
       //sets scope to addition function calling poplated popltd arr
       $scope.totalTrav = arrFactory.daySum(tt);
       $scope.totalDest = arrFactory.daySum(dt);
       //array of filter objects set to scope
-      $scope.dest = curCityDest
+      $scope.dest = curSpots
     })
 
-    curCityDest = [];
+
+    curSpots = [];
     dt = [];
     tt = [];
   })
@@ -64,7 +72,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
           if (v.city === $scope.currentCity) {
 
             //pushes objects of currentCity to array
-            curCityDest.push(v)
+            curSpots.push(v)
             dt.push(parseFloat(v.destTime))
             tt.push(parseFloat(v.travelTime))
           }
@@ -73,7 +81,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
         $scope.totalTrav = arrFactory.daySum(tt);
         $scope.totalDest = arrFactory.daySum(dt);
         //array of filter objects set to scope
-        $scope.dest = curCityDest
+        $scope.dest = curSpots
 
       })
 
@@ -91,7 +99,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
     }
     //redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
-      $location.url(`#/map/view/${$stateParams.trip}`);
+      $location.url(`/map/view/${$scope.currentTrip}`);
     }
 
 })

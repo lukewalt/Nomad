@@ -1,6 +1,6 @@
-<ion-view view-title="Spots">
+<ion-view view-title="{{currentTrip}}">
   <ion-content>
-    <h1>{{currentCity}}</h1>
+    <h1>Spots</h1>
 
     <div class="card">
 
@@ -9,8 +9,7 @@
           <button class="button button-icon icon ion-ios-minus-outline"
             ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
         </div>
-
-        <h1 class="title">{{currentCity}}</h1>
+        <h1 class="title">Spots</h1>
 
         <div class="buttons">
           <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
@@ -21,9 +20,7 @@
 
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
-        <ion-item ng-repeat="item in dest"
-                  item="item"ng-if="currentTrip === item.trip"
-                   class="item-remove-animate">
+        <ion-item ng-repeat="item in dest" ng-if="item.trip === currentTrip" class="item-remove-animate">
           {{item.travelTime}} hrs - {{item.name}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item, item.key)">
