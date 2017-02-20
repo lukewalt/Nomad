@@ -17,11 +17,11 @@ angular.module('starter.factories', [])
     distMtx: () => {
       return $http.get(`/googlemapsapi/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJNT0D7YpmZIgRW_JTBDL7Iwg|place_id:ChIJKZauwUNmZIgRblF0U05TJWI&destinations=place_id:ChIJuY25rS9kZIgRN5MuBAa-JY4|place_id:ChIJ8VhEtvdmZIgRB-GYkpcO89M&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
       .then((val) => console.log(val.data.rows))
+    },
+    geoCode: (lat, lng) => {
+      return $http.get(`/googlemapsapi/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
+      .then((val) => console.log(val))
     }
-    // geoCode: (lat, lng) => {
-    //   return $http.get(`/googlemapsapi/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
-    //   .then((val) => console.log(val);)
-    // }
   }
 })
 
@@ -30,7 +30,7 @@ angular.module('starter.factories', [])
     postForm: (form) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },
-    getCities: () => {
+    getTrips: () => {
       return $http.get(`https://frontend-cap.firebaseio.com/spots.json`)
       .then((val)=> val )
     },

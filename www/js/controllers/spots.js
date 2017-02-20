@@ -1,14 +1,11 @@
-contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, arrFactory ,firebaseFactory){
+contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location, $state, arrFactory ,firebaseFactory){
 
-  $scope.currentCity = $stateParams.city
-  let itin = document.getElementById('itin')
-  firebase.auth().currentUser.uid
-
+  $scope.currentTrip = $stateParams.trip;
+  
   let curCityDest = [];
   let dt = [];
   let tt = [];
 
-  // firebase.database().ref('destination').orderByChild('city').equalTo($scope.currentCity)
   firebase.database().ref('spots').on('value', () => {
     firebaseFactory.getForm()
     .then((val) => {
@@ -94,7 +91,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $state, a
     }
     //redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
-      $state.go('map.view');
+      $location.url(`#/map/view/${$stateParams.trip}`);
     }
 
 })

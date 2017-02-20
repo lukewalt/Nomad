@@ -22,7 +22,7 @@
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="item in dest"
-                  item="item"
+                  item="item"ng-if="currentTrip === item.trip"
                    class="item-remove-animate">
           {{item.travelTime}} hrs - {{item.name}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"

@@ -1,23 +1,24 @@
-contrl.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
+contrl.controller('TripsCtrl', function($scope, $stateParams, arrFactory, firebaseFactory){
 
+  console.log($stateParams.trip);
   // empty array will store all city values from object
-  let allCities = [];
-
+  let allTrips = [];
 
   //gets all destinations and sets them to values
-  firebaseFactory.getCities()
+  firebaseFactory.getTrips()
     .then((val) => {
       //stores returned data in variable
-      console.log(val.data);
       let allDestinations = val.data
       //takes all objects and extracts all instince values of city key
       console.log(allDestinations);
         angular.forEach(allDestinations, (k, v) => {
+          console.log(k.uid);
+          console.log(firebase.auth().currentUser.uid);
           if (firebase.auth().currentUser.uid === k.uid) {
             //pushes all cities to array
-            allCities.push(k.trip)
+            allTrips.push(k.trip)
             //filters 1 instince per city
-            $scope.cities = arrFactory.cleanArr(allCities)
+            $scope.trips = arrFactory.cleanArr(allTrips)
           }
         })
 

@@ -82,28 +82,18 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     }
   })
-  .state('app.suggested', {
-    url: '/suggested',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/suggested.html',
-        controller: 'SugCtrl'
-      }
-    }
-  })
-
-  .state('app.city', {
-      url: '/trips/:city',
+  .state('app.curTrip', {
+      url: '/trips/:trip',
       views: {
         'menuContent': {
-          templateUrl: 'templates/city.html',
-          controller: 'CityCtrl'
+          templateUrl: 'templates/curTrip.html',
+          controller: 'CurTripCtrl'
         }
       }
     })
 
   .state('app.spots', {
-    url: '/trips/:city/spots',
+    url: '/trips/:trip/spots',
     views: {
       'menuContent': {
         templateUrl: 'templates/spots.html',
@@ -112,16 +102,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   })
   .state('app.info', {
-    url: '/trips/:city/info',
+    url: '/trips/:trip/info',
     views: {
       'menuContent': {
-        templateUrl: 'templates/tripinfo.html',
+        templateUrl: 'templates/info.html',
         controller: 'InfoCtrl'
       }
     }
   })
   .state('app.fav', {
-    url: '/trips/:city/fav-spots',
+    url: '/trips/:trip/fav-spots',
     views: {
       'menuContent': {
         templateUrl: 'templates/fav.html',
@@ -129,6 +119,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       }
     }
   })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/auth/login');
 });

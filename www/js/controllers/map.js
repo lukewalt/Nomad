@@ -1,9 +1,10 @@
-contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordovaGeolocation, gooGeoFactory, btnFactory) {
+contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $location, $cordovaGeolocation, gooGeoFactory, btnFactory) {
 
   // gooGeoFactory.distMtx()
   $scope.goToMenu = ()=>{
-    $state.go('app.trips')
+    $location.url(`/app/trips/${$stateParams.trip}/spots`);
   }
+  console.log($stateParams.trip);
 
   //sets high accuracy
   let options = {timeout: 10000, enableHighAccuracy: true};
@@ -13,7 +14,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
 
     //sets device location to a google lat-lng and saves it as a variable
     let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    // gooGeoFactory.geoCode(position.coords.latitude, position.coords.longitude)
+    gooGeoFactory.geoCode(position.coords.latitude, position.coords.longitude)
 
     // establishes current options for current view
     let mapOptions = {
@@ -39,18 +40,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
           infoWindow.open($scope.map, marker);
       });
     });
-
-
-    //SEE Day:
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new btnFactory.CenterControl(centerControlDiv, $scope.map);
-    centerControlDiv.index = 1;
-    centerControlDiv.setAttribute('class', 'see-day-btn')
-    centerControlDiv.setAttribute('id', 'goToDay')
-    centerControlDiv.addEventListener('click', function() {
-      $state.go('app.spots')
-    });
-    $scope.map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 
   },
@@ -90,12 +79,14 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
         infoWindow.open($scope.map, marker);
       });
 
-      google.maps.event.addListener(marker, 'dblclick', function () {
+      google.maps.event.addListener(marker, 'idle', function () {
         console.log("db");
         marker.setMap(null);
       });
 
   }
+
+
 
 
   //creates custom infowindow and obj to push user choice to their spot
@@ -124,7 +115,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
 
       let info = document.createElement('button');
       info.innerText = 'i';
-      info.setAttribute('class', 'btn');
+      info.setAttribute('class', 'savePlaceInfo');
 
       info.addEventListener('click', () => {
         spot.details = `${name} : ${adr} : ${phn} : ${web}`
@@ -134,11 +125,10 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
 
         .then(()=>{
           alert('You Added ' + name + ' to info')
-          document.getElementById('goToDay').className = ''
         })
         .then(()=>{
           spots = {}
-          console.log(spots);
+          console.log("info added", spots);
         })
       })
       infoView.append(info);
@@ -197,7 +187,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $cordo
         .then(()=>{
           if (select.value > 0) {
             alert('You Added ' + spot.name + ' to spots')
-            document.getElementById('goToDay').className = ''
           }
         })
       })
