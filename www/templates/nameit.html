@@ -2,10 +2,14 @@
   <ion-content>
 
     <div class="card nameit">
+
       <form class="list" ng-submit="getTrip()">
         <label class="item item-input">
           <input type="text" placeholder="Name Your Trip" ng-model="trip.name"  ng-minlength="3" required>
         </label>
+        <div class="item item-image">
+          <img src="/img/nomad_square.jpg">
+        </div>
         <button class="button button-full button-energized" ng-disabled="credentialsForm.$invalid">
           GO!
         </button>
