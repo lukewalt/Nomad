@@ -1,6 +1,18 @@
 /* Empty. Add your own CSS if you like */
 
+ion-nav-view,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  font-family: 'Heebo', sans-serif;
+
+}
+
 a {
+  font-family: 'Heebo', sans-serif;
   text-decoration: none;
 }
 
@@ -53,7 +65,11 @@ a {
   padding: 0 45px;
 
 }
-/*.nav-btns-spots > * {
-  margin: 0 45px;
+.button {
+  font-family: 'Heebo', sans-serif;
 
-}*/
+}
+
+.cur-trp-links {
+  text-align: center;
+}

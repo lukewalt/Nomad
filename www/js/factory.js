@@ -20,7 +20,18 @@ angular.module('starter.factories', [])
     },
     geoCode: (lat, lng) => {
       return $http.get(`/googlemapsapi/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
-      .then((val) => console.log(val))
+      .then((val) => {
+        const locInfo = val.data.results
+        console.log(locInfo);
+        let adr;
+        for (var i = 0; i < locInfo.length; i++) {
+          adr = locInfo[0].formatted_address
+          console.log(adr);
+          break
+        }
+        return adr
+
+      })
     }
   }
 })
