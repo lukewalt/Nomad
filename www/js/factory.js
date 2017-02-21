@@ -38,8 +38,8 @@ angular.module('starter.factories', [])
       return firebase.database().ref('spots').once('value')
       .then((snap)=> snap.val())
     },
-    deleteForm: (key) => {
-      return firebase.database().ref('destination').child(key).remove()
+    deleteSpot: (key) => {
+      return firebase.database().ref('spots').child(key).remove()
     },
     deleteInfo: (key) => {
       return firebase.database().ref('info').child(key).remove()

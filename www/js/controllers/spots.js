@@ -1,16 +1,18 @@
 contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location, $state, arrFactory ,firebaseFactory){
 
+  const spotsRef = firebase.database().ref('spots')
+
   $scope.currentTrip = $stateParams.trip;
   console.log("current trip : " , $scope.currentTrip);
-  $scope.flag = false;
   $scope.user = firebase.auth().currentUser.uid
+
   const currentTrip = $stateParams.trip;
 
   let curSpots = [];
   let dt = [];
   let tt = [];
 
-  firebase.database().ref('spots').on('value', () => {
+  spotsRef.on('value', () => {
     firebaseFactory.getForm()
     .then((val) => {
       //sets all destinations to varibale
@@ -37,8 +39,6 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
       //array of filter objects set to scope
       $scope.dest = curSpots
     })
-
-
     curSpots = [];
     dt = [];
     tt = [];
@@ -57,36 +57,14 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
       $scope.dest.splice(toIndex, 0, item);
     };
 
+
     $scope.onItemDelete = function(item, key) {
-      //deletes obj in firebase
-      firebaseFactory.deleteForm(key);
-      //removes from the DOM
-      $scope.dest.splice($scope.dest.indexOf(item), 1);
 
-
-/*
-      //re-calculates day summary
-      firebase.database().ref('destination').on('child_changed', function(snap){
-        let allObj = snap.val()
-        angular.forEach(allObj, (v, k) => {
-          if (v.city === $scope.currentCity) {
-
-            //pushes objects of currentCity to array
-            curSpots.push(v)
-            dt.push(parseFloat(v.destTime))
-            tt.push(parseFloat(v.travelTime))
-          }
-        })
-        //sets scope to addition function calling poplated popltd arr
-        $scope.totalTrav = arrFactory.daySum(tt);
-        $scope.totalDest = arrFactory.daySum(dt);
-        //array of filter objects set to scope
-        $scope.dest = curSpots
-
-      })
-
-*/
+      $scope.dest.splice($scope.dest.indexOf(item), 1)
+      // deletes obj in firebase
+      spotsRef.child(key).remove()
     };
+
 
     $scope.flag = false;
     $scope.addToFav = (item) => {
