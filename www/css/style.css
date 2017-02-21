@@ -46,6 +46,14 @@ a {
   margin: 0 54px;
 }
 
-.nameit {
+.nav-btns-spots {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 45px;
 
 }
+/*.nav-btns-spots > * {
+  margin: 0 45px;
+
+}*/

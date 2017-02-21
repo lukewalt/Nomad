@@ -36,7 +36,12 @@
       </ion-list>
 
     </div>
-    <button class="button button-block button-energized" ng-click="addAnotherSpot()"> Add Another</button>
+    <div class="nav-btns-spots">
+      <button class="button button-icon icon ion-location " ng-click="addAnotherSpot()"></button>
+      <a href="#/app/trips/{{currentTrip}}"><button class="button button-icon icon ion-map "></button></a>
+      <a href="#/app/trips/{{currentTrip}}/fav-spots"><button class="button button-icon icon ion-pin "></button></a>
+
+    </div>
 
     <div class="card">
       <div class="item item-divider">
