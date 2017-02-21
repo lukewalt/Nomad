@@ -3,7 +3,7 @@ contrl.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
   $scope.currentTrip = $stateParams.trip;
   // $scope.currentUser = firebase.auth().currentUser.uid;
   console.log($scope.currentTrip);
-
+  const input = document.getElementById('infoInput')
   const infoRef = firebase.database().ref('info');
 
   $scope.obj = {};
@@ -12,6 +12,7 @@ contrl.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
     $scope.obj.trip = $scope.currentTrip;
     $scope.obj.uid = firebase.auth().currentUser.uid;
     infoRef.push($scope.obj)
+    .then(()=> input.value = " ")
     .then(() => $scope.obj = {})
   }
 

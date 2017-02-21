@@ -21,14 +21,12 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/form">
-          Create A Day
-        </ion-item>
-        <ion-item menu-close href="#/app/trips">
-          Trips
-        </ion-item>
         <ion-item menu-close href="#/map/view/{{currentTrip}}">
           Map
+        </ion-item>
+
+        <ion-item menu-close href="#/app/trips">
+          Trips
         </ion-item>
         <ion-item menu-close ng-click="logoutModal()">
           Log Out

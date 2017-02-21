@@ -187,6 +187,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
         .then(()=>{
           if (select.value > 0) {
             alert('You Added ' + spot.name + ' to spots')
+            spot = {}
           }
         })
       })
