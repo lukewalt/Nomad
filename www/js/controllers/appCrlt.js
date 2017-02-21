@@ -6,7 +6,6 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $stateParams, $state,
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-
   $scope.currentTrip = $stateParams.trip;
   console.log($scope.currentTrip);
 
@@ -18,7 +17,7 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $stateParams, $state,
   });
 
   // Triggered in the login modal to close it
-  $scope.closeLogout = function() {
+  $scope.doLogout = function() {
     firebase.auth().signOut()
 
     .then(()=>$scope.modal.hide())
@@ -31,9 +30,11 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $stateParams, $state,
     $scope.modal.show();
   };
 
-  $scope.goToTrips = ()=>{
-    $state.go('app.trips');
+  $scope.closeModal = ()=>{
+    $scope.modal.hide()
   }
+
+
 
 
 })
