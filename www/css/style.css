@@ -14,6 +14,7 @@ p {
 a {
   font-family: 'Heebo', sans-serif;
   text-decoration: none;
+  color: #5cafff;
 }
 
 .custom-icon {
@@ -70,6 +71,17 @@ a {
 
 }
 
-.cur-trp-links {
-  text-align: center;
+.cur-trp-links > * {
+  display: flex;
+  justify-content: space-between;
+}
+
+.savePlaceInfo {
+  border-radius: 55%;
+  background-color: #ffc900;
+  color: white;
+  border: 5px solid white;
+  height: 30px;
+  width: 30px;
+  margin: 0 8%;
 }
