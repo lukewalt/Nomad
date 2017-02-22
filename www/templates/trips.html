@@ -3,8 +3,9 @@
 
     <div class="list card" ng-repeat="i in trips">
       <a href='#/app/trips/{{i}}'>
-        <div class="item">
+        <div class="item trips-header">
           <h2>{{i}}</h2>
+          <button class="button button-icon icon ion-trash-b" ng-click="removeInfoNote(k)"></button>
         </div>
         <div class="item item-body">
           <img class="full-image" src="/img/nomad.jpg">

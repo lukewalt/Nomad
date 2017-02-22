@@ -11,6 +11,10 @@ p {
 
 }
 
+div > * {
+  vertical-align: middle;
+}
+
 a {
   font-family: 'Heebo', sans-serif;
   text-decoration: none;
@@ -19,6 +23,11 @@ a {
 
 .custom-icon {
   color: white;
+}
+
+.ion-android-delete {
+  float: right;
+  vertical-align: top;;
 }
 
 .ion-ios-close-empty {
@@ -36,9 +45,6 @@ a {
   height: 100%;
 }
 
-.infoViewFooter {
-  /*display: flex;*/
-}
 
 .btn {
   border-radius: 5px;
@@ -109,4 +115,12 @@ a {
 .bold-userinput {
   font-weight: 800;
   text-align: center;
+}
+
+.trips-header {
+  display: flex;
+  justify-content: space-between;
+}
+.trips-header > * {
+  vertical-align: middle;
 }
