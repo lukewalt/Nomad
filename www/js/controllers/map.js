@@ -10,21 +10,11 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
   let options = {timeout: 10000, enableHighAccuracy: true};
 
   //DEVICE LOCATION: gets ^ options then it fires a function with a position of device
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+  $cordovaGeolocation.getCurrentPosition(options)
+  .then(function(position){
 
     //sets device location to a google lat-lng and saves it as a variable
     let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    gooGeoFactory.geoCode(29.7604, -95.3698)
-    .then((adr)=> {
-
-      let strspl = adr.split(" ")
-      let cty;
-      for (var i = 0; i < strspl.length; i++) {
-        cty = strspl[3]
-        cty += strspl[4]
-      }
-      $scope.curCity = cty
-    })
 
     // establishes current options for current view
     let mapOptions = {

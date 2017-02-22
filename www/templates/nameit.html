@@ -1,11 +1,13 @@
 <ion-view view-title="Name Trip">
   <ion-content>
 
-    <div class="card nameit">
 
       <form class="list" ng-submit="getTrip()">
         <label class="item item-input">
-          <input type="text" placeholder="Name Your Trip" ng-model="trip.name"  ng-minlength="3" required>
+          <input class="bold-userinput" type="text" placeholder="Name Your Trip" ng-model="trip.name"  ng-minlength="3" required>
+        </label>
+        <label class="item loc-adr">
+          <i class="icon ion-navigate yellow-icon"></i><p>{{curCity}}</p>
         </label>
         <div class="item item-image">
           <img src="/img/nomad_square.jpg">
@@ -14,8 +16,9 @@
           GO!
         </button>
       </form>
-      <a href="#/app/trips">prior trips</a>
-    </div>
+      <div class="bottom-links">
+        <a href="#/app/trips">prior trips</a>
+      </div>
 
   </ion-content>
 </ion-view>

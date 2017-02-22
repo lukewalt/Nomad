@@ -85,3 +85,28 @@ a {
   width: 30px;
   margin: 0 8%;
 }
+
+.yellow-icon {
+  color: #ffc900;
+  font-size: 1.5em;
+}
+
+
+.loc-adr {
+  display: flex;
+  padding: 10px;
+  vertical-align: middle;
+}
+.loc-adr > * {
+  margin-right: 20px;
+}
+
+.bottom-links {
+  text-align: center;
+}
+
+
+.bold-userinput {
+  font-weight: 800;
+  text-align: center;
+}
