@@ -1,16 +1,31 @@
 <ion-modal-view>
-  <ion-header-bar>
+  <!-- <ion-header-bar>
     <h1 class="title">Log Out</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div>
-  </ion-header-bar>
+  </ion-header-bar> -->
   <ion-content>
-      <div class="list">
-        <label class="item">
-          <button class="button button-block button-positive" ng-click="doLogout()" >Log Out</button>
-        </label>
-      </div>
-      <a ng-click="closeModal()">Go Back</a>
+
+
+    <div class="list card">
+           <ion-item class="profile-item">
+             <div class="profile-picture big-profile-picture">
+               <img src="img/nomad_square.jpg">
+             </div>
+           </ion-item>
+           <ion-item class="profile-item">
+             <label class="item">
+               <button class="button button-block logout-btn" ng-click="doLogout()" >Log Out</button>
+               <div class="bottom-links">
+                 <a ng-click="closeModal()">close</a>
+               </div>
+             </label>
+           </ion-item>
+         </div>
+
+
+      <!-- <div class="list">
+      </div> -->
   </ion-content>
 </ion-modal-view>

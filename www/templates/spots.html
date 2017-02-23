@@ -4,7 +4,7 @@
 
     <div class="card">
 
-      <ion-header-bar class="bar-energized">
+      <ion-header-bar class="bar-light">
         <div class="buttons">
           <button class="button button-icon icon ion-ios-minus-outline"
             ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
@@ -26,7 +26,7 @@
                              ng-click="onItemDelete(item, item.key)">
           </ion-delete-button>
           <ion-option-button class="button-energized add-to-fav" ng-click="addToFav(item)" ng-disabled="flag">
-                             <button class="button button-icon icon ion-flag custom-icon"> </button>
+                             <button class="button button-icon icon ion-star custom-icon"> </button>
 
           </ion-option-button>
 
@@ -38,8 +38,8 @@
     </div>
     <div class="nav-btns-spots">
       <button class="button button-icon icon ion-earth " ng-click="addAnotherSpot()"></button>
-      <a href="#/app/trips/{{currentTrip}}"><button class="button button-icon icon ion-information-circled "></button></a>
-      <a href="#/app/trips/{{currentTrip}}/fav-spots"><button class="button button-icon icon ion-flag "></button></a>
+      <a href="#/app/trips/{{currentTrip}}"><button class="button button-icon icon ion-map "></button></a>
+      <a href="#/app/trips/{{currentTrip}}/fav-spots"><button class="button button-icon icon ion-star "></button></a>
 
     </div>
 

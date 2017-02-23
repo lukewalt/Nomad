@@ -1,5 +1,11 @@
 contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $location, $cordovaGeolocation, gooGeoFactory) {
 
+
+  gooGeoFactory.styleMap()
+  .then((val) => {
+    $scope.styledMapType = new google.maps.StyledMapType(val)
+   })
+
   // gooGeoFactory.distMtx()
   $scope.goToMenu = ()=>{
     $location.url(`/app/trips/${$stateParams.trip}/spots`);
@@ -13,6 +19,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
   $cordovaGeolocation.getCurrentPosition(options)
   .then(function(position){
 
+    console.log(position.coords.latitude, position.coords.longitude);
     //sets device location to a google lat-lng and saves it as a variable
     let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -20,12 +27,18 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     let mapOptions = {
       center: currentLatLng,
       zoom: 12,
-      mapTypeId: google.maps.MapTypeId.HYBRID
+      mapTypeControlOptions: {
+        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                    'styled_map']
+      }
     };
 
 
     //NEW MAP:  sets options and display target for a new map to scope
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    $scope.map.mapTypes.set('styled_map', $scope.styledMapType);
+    $scope.map.setMapTypeId('styled_map');
 
 
     //DROPS MARKER: drops marker on current location
@@ -48,6 +61,9 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     console.log("Could not get location");
   });
 
+  // $scope.locationChanged = function (location) {
+  //   alert(location);
+  // };
 
   //attaches autho complete to imnput field
   const userSearchField = document.getElementById('autocomplete')
@@ -200,4 +216,21 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
 
 
+})
+.directive('disabletap', function($timeout) {
+  return {
+    link: function() {
+      $timeout(function() {
+        container = document.getElementsByClassName('pac-container');
+        // disable ionic data tab
+        angular.element(container).attr('data-tap-disabled', 'true');
+        // leave input field if google-address-entry is selected
+        angular.element(container).on("click", function(){
+            document.getElementById('type-selector').blur();
+        });
+
+      },500);
+
+    }
+  };
 });

@@ -32,6 +32,10 @@ angular.module('starter.factories', [])
         return adr
 
       })
+    },
+    styleMap: () => {
+      return $http.get(`mapspecs.json`)
+      .then((val)=>{ return val.data })
     }
   }
 })
@@ -59,6 +63,9 @@ angular.module('starter.factories', [])
     getInfo: () => {
       return firebase.database().ref('info').once('value')
       .then((snap)=> snap.val())
+    },
+    deleteTrip: (name) => {
+      return firebase.database().ref('spots').child(name).remove()
     },
 
     postFav: (item) => {
