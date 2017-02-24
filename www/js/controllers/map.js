@@ -1,58 +1,58 @@
 contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $location, $cordovaGeolocation, gooGeoFactory) {
 
-
-  gooGeoFactory.styleMap()
-  .then((val) => {
-    $scope.styledMapType = new google.maps.StyledMapType(val)
-   })
-
-  // gooGeoFactory.distMtx()
-  $scope.goToMenu = ()=>{
-    $location.url(`/app/trips/${$stateParams.trip}/spots`);
-  }
+  $scope.currentTrip = $stateParams.trip
   console.log($stateParams.trip);
 
+
   //sets high accuracy
-  let options = {timeout: 10000, enableHighAccuracy: true};
+   const options = {timeout: 10000, enableHighAccuracy: true};
+   //DEVICE LOCATION: gets ^ options then it fires a function with a position of device
+   $cordovaGeolocation.getCurrentPosition(options)
+   .then(function(position){
 
-  //DEVICE LOCATION: gets ^ options then it fires a function with a position of device
-  $cordovaGeolocation.getCurrentPosition(options)
-  .then(function(position){
+     console.log(position.coords.latitude, position.coords.longitude);
+     //sets device location to a google lat-lng and saves it as a variable
+     let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    console.log(position.coords.latitude, position.coords.longitude);
-    //sets device location to a google lat-lng and saves it as a variable
-    let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+     //http.get custom map style
+     gooGeoFactory.styleMap()
+     .then((val) => {
+       $scope.styledMapType = new google.maps.StyledMapType(val)
+     })
 
-    // establishes current options for current view
-    let mapOptions = {
-      center: currentLatLng,
-      zoom: 12,
-      mapTypeControlOptions: {
-        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-                    'styled_map']
-      }
-    };
-
-
-    //NEW MAP:  sets options and display target for a new map to scope
-    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    $scope.map.mapTypes.set('styled_map', $scope.styledMapType);
-    $scope.map.setMapTypeId('styled_map');
+     // establishes current options for current view
+     let mapOptions = {
+       center: currentLatLng,
+       zoom: 12,
+       mapTypeId: google.maps.MapTypeId.ROADMAP,
+       mapTypeControlOptions: {
+         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                     'styled_map']
+       }
+     };
 
 
-    //DROPS MARKER: drops marker on current location
-    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-      let marker = new google.maps.Marker({
-          map: $scope.map,
-          animation: google.maps.Animation.DROP,
-          position: currentLatLng
-      });
+     //NEW MAP:  sets options and display target for a new map to scope
+     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-      google.maps.event.addListener(marker, 'click', function () {
-          infoWindow.open($scope.map, marker);
-      });
-    });
+     $scope.map.mapTypes.set('styled_map', $scope.styledMapType);
+     $scope.map.setMapTypeId('styled_map');
+
+
+     //DROPS MARKER: drops marker on current location
+     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+       let marker = new google.maps.Marker({
+           map: $scope.map,
+           animation: google.maps.Animation.DROP,
+           position: currentLatLng
+       });
+
+       google.maps.event.addListener(marker, 'click', function () {
+           infoWindow.open($scope.map, marker);
+       });
+     });
+
+
 
 
   },
@@ -61,13 +61,19 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     console.log("Could not get location");
   });
 
-  // $scope.locationChanged = function (location) {
-  //   alert(location);
-  // };
-
   //attaches autho complete to imnput field
   const userSearchField = document.getElementById('autocomplete')
   $scope.clearSearchField = () => { userSearchField.value = " " }
+
+  $scope.disableTap = function(){
+    const container = document.getElementsByClassName('pac-container');
+    // disable ionic data tab
+    angular.element(container).attr('data-tap-disabled', 'true');
+    // leave input field if google-address-entry is selected
+    angular.element(container).on("click", function(){
+        userSearchField.blur();
+    });
+  };
 
   const ac = new google.maps.places.Autocomplete(userSearchField);
   google.maps.event.addListener(ac, 'place_changed', function() {
@@ -176,7 +182,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
       travelTime.innerText = "Time Spent"
       footer.append(travelTime)
 
-      const arr2 = ['', 1, 2, 3, 4, 5];
+      const arr2 = ['', 0.5, 1, 2, 3, 4, 5];
       let select2 = document.createElement('select')
       select2.setAttribute('required', 'required')
 
@@ -200,13 +206,16 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
         spot.uid = firebase.auth().currentUser.uid;
         firebase.database().ref('spots').push(spot)
 
-        .then(()=>{
+        .then(() => {
           if (select.value > 0) {
-            alert('You Added ' + spot.name + ' to spots')
-            spot = {}
+            alert('You Added ' + spot.name + ' to info')
           }
         })
+        .then(()=>{
+          spot = {}
+        })
       })
+
       footer.append(button);
 
     infoView.append(footer)
@@ -214,23 +223,10 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     return infoView;
   }
 
+  $scope.goToMenu = ()=>{
+    // $location.url(`/app/trips/${$stateParams.trip}/spots`);
+    $state.go('app.spots', {trip: `${$stateParams.trip}` })
+  }
 
 
 })
-.directive('disabletap', function($timeout) {
-  return {
-    link: function() {
-      $timeout(function() {
-        container = document.getElementsByClassName('pac-container');
-        // disable ionic data tab
-        angular.element(container).attr('data-tap-disabled', 'true');
-        // leave input field if google-address-entry is selected
-        angular.element(container).on("click", function(){
-            document.getElementById('type-selector').blur();
-        });
-
-      },500);
-
-    }
-  };
-});

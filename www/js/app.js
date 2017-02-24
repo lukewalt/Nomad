@@ -63,7 +63,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     views: {
       'mapContent': {
         templateUrl: 'templates/map.html',
-        controller: 'GoogleMapCtrl'
+        controller: 'GoogleMapCtrl',
+        params: { trip: null }
       }
     }
   })
@@ -98,7 +99,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
       'menuContent': {
         templateUrl: 'templates/spots.html',
         controller: 'SpotCtrl'
-      }
+      },
+    params: { trip: null }
     }
   })
   .state('app.info', {

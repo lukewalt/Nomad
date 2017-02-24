@@ -5,7 +5,7 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
 
   $cordovaGeolocation.getCurrentPosition(options)
   .then((position)=>{
-
+    console.log(position.coords.latitude, position.coords.longitude);
     gooGeoFactory.geoCode(position.coords.latitude, position.coords.longitude)
     .then((adr)=> {
 
@@ -24,6 +24,11 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
   $scope.getTrip = () => {
     $scope.currentTrip = $scope.trip.name
     console.log("current trip  ", $scope.currentTrip);
-    $location.url(`/map/view/${$scope.currentTrip}`);
+    $state.go('map.view', {trip: "$scope.trip.name"});
+
+  }
+
+  $scope.gotoTrips = () => {
+    $state.go('app.trips')
   }
 })

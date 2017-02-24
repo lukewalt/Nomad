@@ -19,10 +19,10 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <!-- <ion-item menu-close href="#/map/view/{{currentTrip}}">
-          Map
-        </ion-item> -->
-        <ion-item menu-close href="#/app/trips">
+        <ion-item menu-close ng-click="goToNameit()">
+          Create A Day
+        </ion-item>
+        <ion-item menu-close ng-click="gotoTrips()">
           Trips
         </ion-item>
         <ion-item menu-close ng-click="logoutModal()">

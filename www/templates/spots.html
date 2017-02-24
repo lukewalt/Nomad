@@ -1,25 +1,20 @@
 <ion-view view-title="{{currentTrip}}">
   <ion-content>
-    <h1>Spots</h1>
 
-    <div class="card">
 
       <ion-header-bar class="bar-light">
         <div class="buttons">
           <button class="button button-icon icon ion-ios-minus-outline"
-            ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+          ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
         </div>
         <h1 class="title">Spots</h1>
-
         <div class="buttons">
           <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
-              <i class="icon ion-drag"></i>
+            <i class="icon ion-drag"></i>
           </button>
         </div>
       </ion-header-bar>
-
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
-
         <ion-item ng-repeat="item in dest" ng-if="item.trip === currentTrip" class="item-remove-animate">
           {{item.travelTime}} hrs - {{item.name}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"
@@ -29,17 +24,15 @@
                              <button class="button button-icon icon ion-star custom-icon"> </button>
 
           </ion-option-button>
-
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
-
       </ion-list>
 
-    </div>
+
     <div class="nav-btns-spots">
-      <button class="button button-icon icon ion-earth " ng-click="addAnotherSpot()"></button>
-      <a href="#/app/trips/{{currentTrip}}"><button class="button button-icon icon ion-map "></button></a>
-      <a href="#/app/trips/{{currentTrip}}/fav-spots"><button class="button button-icon icon ion-star "></button></a>
+      <a ng-click="addAnotherSpot()"><i class="button button-icon icon ion-earth "></i></a>
+      <a href="#/app/trips/{{currentTrip}}"><i class="button button-icon icon ion-map "></i></a>
+      <a href="#/app/trips/{{currentTrip}}/fav-spots"><i class="button button-icon icon ion-star "></i></a>
 
     </div>
 

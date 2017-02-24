@@ -9,13 +9,13 @@
           <!-- </label> -->
         </div>
 
-        <form class="list" ng-submit="getTrip()">
+        <form class="list nameit-form" ng-submit="getTrip()">
           <div class="item item-text-wrap create-today-div">
             <div class="item item-input-inset nameit-inset">
               <label class="item-input-wrapper">
-                <input type="text" placeholder="Create Today" ng-model="trip.name"  ng-minlength="3" required>
+                <input type="text" id="nameit-input" placeholder="Create Today" ng-model="trip.name"  ng-minlength="3" required>
               </label>
-              <button class="button button-small button-energized" ng-disabled="credentialsForm.$invalid">
+              <button class="button button-small nameit-btn button-energized" ng-disabled="credentialsForm.$invalid">
                 GO!
               </button>
             </div>
@@ -23,7 +23,7 @@
         </form>
 
         <div class="item item-divider bottom-links">
-          <a href="#/app/trips">view prior trips</a>
+          <a ng-click="gotoTrips()">view prior trips</a>
         </div>
 
       </div>

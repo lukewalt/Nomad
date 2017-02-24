@@ -7,6 +7,14 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $state, $timeout) {
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  $scope.goToNameit = () => {
+    $state.go('map.nameit')
+  }
+  $scope.gotoTrips = () => {
+    $state.go('app.trips')
+  }
+
+
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/logout.html', {
     scope: $scope

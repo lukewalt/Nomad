@@ -12,7 +12,6 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
   let dt = [];
   let tt = [];
 
-  spotsRef.on('value', () => {
     firebaseFactory.getForm()
     .then((val) => {
       //sets all destinations to varibale
@@ -39,10 +38,12 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
       //array of filter objects set to scope
       $scope.dest = curSpots
     })
-    curSpots = [];
-    dt = [];
-    tt = [];
-  })
+    .then(() => {
+
+      curSpots = [];
+      dt = [];
+      tt = [];
+    })
   //gets spots for the day
 
 
@@ -75,9 +76,9 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
         $scope.flag = false;
       },3500))
     }
-    //redired back to form back to form to add another spot
+    // redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
-      $location.url(`/map/view/${$scope.currentTrip}`);
+      $state.go('map.view', {trip: $scope.currentTrip });
     }
 
 })
