@@ -78,7 +78,7 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
     }
     // redired back to form back to form to add another spot
     $scope.addAnotherSpot = () => {
-      $state.go('map.view', {trip: $scope.currentTrip });
+      $state.go('map.view', {trip: $scope.currentTrip} );
     }
 
 })

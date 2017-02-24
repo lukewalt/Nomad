@@ -15,7 +15,7 @@
         </div>
       </ion-header-bar>
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
-        <ion-item ng-repeat="item in dest" ng-if="item.trip === currentTrip" class="item-remove-animate">
+        <ion-item ng-repeat="item in dest" ng-if="item.trip === currentTrip" class="item-remove-animate item item-text-wrap">
           {{item.travelTime}} hrs - {{item.name}} - {{item.destTime}} hrs
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item, item.key)">
@@ -30,9 +30,9 @@
 
 
     <div class="nav-btns-spots">
-      <a ng-click="addAnotherSpot()"><i class="button button-icon icon ion-earth "></i></a>
       <a href="#/app/trips/{{currentTrip}}"><i class="button button-icon icon ion-map "></i></a>
       <a href="#/app/trips/{{currentTrip}}/fav-spots"><i class="button button-icon icon ion-star "></i></a>
+      <a ng-click="addAnotherSpot()"><i class="button button-icon icon ion-earth "></i></a>
 
     </div>
 

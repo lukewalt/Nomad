@@ -3,9 +3,19 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
   $scope.currentTrip = $stateParams.trip
   console.log($stateParams.trip);
 
+  $scope.goToMenu = ()=>{
+    // $location.url(`/app/trips/${$stateParams.trip}/spots`);
+    $state.go('app.spots', {trip: $stateParams.trip })
+  }
+
+  //  http.get custom map style
+  // gooGeoFactory.styleMap()
+  // .then((val) => {
+  //   $scope.styledMapType = new google.maps.StyledMapType(val)
+  // })
 
   //sets high accuracy
-   const options = {timeout: 10000, enableHighAccuracy: true};
+   const options = {timeout: 1000, enableHighAccuracy: true};
    //DEVICE LOCATION: gets ^ options then it fires a function with a position of device
    $cordovaGeolocation.getCurrentPosition(options)
    .then(function(position){
@@ -14,29 +24,22 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
      //sets device location to a google lat-lng and saves it as a variable
      let currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-     //http.get custom map style
-     gooGeoFactory.styleMap()
-     .then((val) => {
-       $scope.styledMapType = new google.maps.StyledMapType(val)
-     })
 
      // establishes current options for current view
      let mapOptions = {
        center: currentLatLng,
        zoom: 12,
-       mapTypeId: google.maps.MapTypeId.ROADMAP,
-       mapTypeControlOptions: {
-         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-                     'styled_map']
-       }
+       mapTypeId: google.maps.MapTypeId.ROADMAP
      };
-
+      //  mapTypeControlOptions: {
+      //    mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+      //                'styled_map']
+      //  }
 
      //NEW MAP:  sets options and display target for a new map to scope
      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-     $scope.map.mapTypes.set('styled_map', $scope.styledMapType);
-     $scope.map.setMapTypeId('styled_map');
+    //  $scope.map.mapTypes.set('styled_map', $scope.styledMapType);
+    //  $scope.map.setMapTypeId('styled_map');
 
 
      //DROPS MARKER: drops marker on current location
@@ -50,6 +53,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
        google.maps.event.addListener(marker, 'click', function () {
            infoWindow.open($scope.map, marker);
        });
+
      });
 
 
@@ -221,11 +225,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     infoView.append(footer)
 
     return infoView;
-  }
-
-  $scope.goToMenu = ()=>{
-    // $location.url(`/app/trips/${$stateParams.trip}/spots`);
-    $state.go('app.spots', {trip: `${$stateParams.trip}` })
   }
 
 

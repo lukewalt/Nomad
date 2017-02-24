@@ -24,8 +24,7 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
   $scope.getTrip = () => {
     $scope.currentTrip = $scope.trip.name
     console.log("current trip  ", $scope.currentTrip);
-    $state.go('map.view', {trip: "$scope.trip.name"});
-
+    $state.go('map.view', {trip: $scope.trip.name});
   }
 
   $scope.gotoTrips = () => {
