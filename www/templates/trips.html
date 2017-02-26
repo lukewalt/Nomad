@@ -2,7 +2,7 @@
   <ion-content>
 
     <div class="list card" ng-repeat="i in trips">
-      <a href='#/app/trips/{{i}}'>
+      <a ng-click='gotoCurTrip(i)'>
         <div class="item trips-header">
           <h2>{{i}}</h2>
           <!-- <button class="button button-icon icon ion-trash-b" ng-click="removeTrip({{i}})"></button> -->

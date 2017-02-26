@@ -1,4 +1,4 @@
-contrl.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
+contrl.controller('TripsCtrl', function($scope, $state, $stateParams, arrFactory, firebaseFactory){
 
   // empty array will store all city values from object
   let allTrips = [];
@@ -23,15 +23,9 @@ contrl.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
 
   })
 
-  $scope.removeTrip = (name) => { firebaseFactory.deleteTrip(name) }
-
-  spotRef.on("child_removed", () => {
-    firebaseFactory.getInfo()
-    .then((data)=>{
-      $scope.data = data
-      $scope.$apply()
-    })
-  });
-
+  $scope.gotoCurTrip = (name) => {
+    $stateParams.trip = name
+    $state.go('app.curTrip', {trip: $stateParams.trip})
+  }
 
 })

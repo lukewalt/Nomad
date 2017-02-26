@@ -5,7 +5,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
   $scope.goToMenu = ()=>{
     // $location.url(`/app/trips/${$stateParams.trip}/spots`);
-    $state.go('app.spots', {trip: $stateParams.trip })
+    $state.go('app.spots', {trip: $stateParams.trip})
   }
 
   //  http.get custom map style
@@ -162,7 +162,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     let b = document.createElement('br')
     infoView.append(b)
 
-    let footer = document.createElement('form')
+    let footer = document.createElement('div')
     footer.setAttribute('class', 'infoViewFooter')
 
 
@@ -212,7 +212,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
         .then(() => {
           if (select.value > 0) {
-            alert('You Added ' + spot.name + ' to info')
+            alert('You Added ' + spot.name + ' to Spots')
           }
         })
         .then(()=>{

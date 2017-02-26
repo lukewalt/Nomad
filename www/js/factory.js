@@ -50,8 +50,7 @@ angular.module('starter.factories', [])
       .then((val)=> val )
     },
     getForm: () => {
-      return firebase.database().ref('spots').once('value')
-      .then((snap)=> snap.val())
+      return $http.get(`https://frontend-cap.firebaseio.com/spots.json`)
     },
     deleteSpot: (key) => {
       return firebase.database().ref('spots').child(key).remove()
@@ -59,7 +58,6 @@ angular.module('starter.factories', [])
     deleteInfo: (key) => {
       return firebase.database().ref('info').child(key).remove()
     },
-
     getInfo: () => {
       return firebase.database().ref('info').once('value')
       .then((snap)=> snap.val())
