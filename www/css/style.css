@@ -12,7 +12,7 @@ h4,
 h5,
 p {
   font-family: 'Heebo', sans-serif;
-
+  color: #444;
 }
 
 div > * {
@@ -134,21 +134,19 @@ a {
 }
 
 .profile-picture {
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  padding: 3px;
+  padding: 1px;
   border-radius: 100%;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  margin: 0 auto;
-  margin-bottom: 8%;
-  width: 128px;
-  height: 128px;
-  overflow: hidden;
+  margin: auto;
+  width: 175px;
+  height: 175px;
+  /*overflow: hidden;*/
 }
 
 .profile-picture img {
-  width: 128px;
+  width: 175px;
   border-radius: 100%;
 }
 
@@ -178,6 +176,7 @@ a {
   font-size: 25px;
   font-family: 'Permanent Marker', cursive;
   text-align: center;
+  color: #444;
 }
 
 .nameit-btn {
@@ -200,10 +199,10 @@ a {
 }
 
 #title-header-login {
-  font-size: 3.5em;
+  font-size: 4em;
   font-family: 'Permanent Marker', cursive;
   color: #ffc900;
-  margin: 7%;
+  margin: 2% 0 0;
 }
 #title-header-logout {
   font-family: 'Permanent Marker', cursive;
@@ -228,4 +227,17 @@ a {
 
 .input-label {
   text-align: left;
+}
+
+.nameit-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 100%;
+  opacity: 0.5;
+}
+
+#nameit-bkgrd {
+  background: radial-gradient(circle, white, #27BBAB); /* Standard syntax */
 }
