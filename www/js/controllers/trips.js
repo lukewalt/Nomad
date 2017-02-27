@@ -1,5 +1,6 @@
 contrl.controller('TripsCtrl', function($scope, $state, $stateParams, arrFactory, firebaseFactory){
 
+  $scope.curTrip = $stateParams.trip
   // empty array will store all city values from object
   let allTrips = [];
   const spotRef = firebase.database().ref('spots')

@@ -126,6 +126,7 @@ a {
 
 .profile-item {
   text-align: center;
+  padding: 0;
 }
 
 .profile-picture {
@@ -136,6 +137,7 @@ a {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   margin: 0 auto;
+  margin-bottom: 8%;
   width: 128px;
   height: 128px;
   overflow: hidden;
@@ -189,4 +191,15 @@ a {
 .day-summery {
   padding: 0 0 20% 0;
   background-color: white;
+}
+
+#title-header-login {
+  font-family: 'Permanent Marker', cursive;
+  color: #ffc900;
+  font-size: 3.5em;
+  margin-bottom: 5%;
+}
+
+.login-btn-div {
+  padding: 0 3%;
 }

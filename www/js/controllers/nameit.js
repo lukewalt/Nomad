@@ -1,4 +1,5 @@
 contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeolocation, gooGeoFactory) {
+
   $scope.trip = {}
 
   let options = {timeout: 1000, enableHighAccuracy: true};
@@ -9,7 +10,8 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
     console.log("nameit pos", position.coords.latitude, position.coords.longitude);
     geo(position.coords.latitude, position.coords.longitude)
   })
-  
+  .catch((err)=>{console.log(err)})
+
   function geo(x, y) {
     gooGeoFactory.geoCode(x, y)
     .then((adr)=> {
@@ -20,7 +22,7 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
         cty += strspl[i] + " "
 
       }
-      console.log(cty);
+      console.log("city", cty);
       $scope.curCity = cty
     })
 
