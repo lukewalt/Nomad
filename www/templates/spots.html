@@ -23,7 +23,7 @@
           ng-click="onItemDelete(item, item.key)">
         </ion-delete-button>
         <ion-option-button class="button-energized add-to-fav" ng-click="addToFav(item)" ng-disabled="flag">
-          <button class="button button-icon icon ion-star custom-icon"> </button>
+          <button class="button button-icon icon ion-flag custom-icon"> </button>
 
         </ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -34,9 +34,9 @@
 
 
     <div class="nav-btns-spots">
-      <a href="#/app/trips/{{currentTrip}}/fav-spots"><i class="button button-icon icon ion-star "></i></a>
-      <a href="#/app/trips/{{currentTrip}}/info"><i class="button button-icon icon ion-information "></i></a>
-      <a ng-click="addAnotherSpot()"><i class="button button-icon icon ion-earth "></i></a>
+      <a href="#/app/trips/{{currentTrip}}/fav-spots"><i class="button button-icon icon ion-flag "></i></a>
+      <a href="#/app/trips/{{currentTrip}}/info"><i class="button button-icon icon ion-ios-information-outline "></i></a>
+      <a ng-click="addAnotherSpot()"><i class="button button-icon icon ion-map "></i></a>
 
     </div>
 
