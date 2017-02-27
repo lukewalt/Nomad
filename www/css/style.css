@@ -225,3 +225,7 @@ a {
   font-family: 'Heebo', sans-serif;
   font-size: 1.4em;
 }
+
+.input-label {
+  text-align: left;
+}
