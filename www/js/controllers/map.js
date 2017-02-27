@@ -60,7 +60,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
 
   },
-  //runs if cordova geolocation doesnt get current location
+  //catches error if no locaion could be found/google api timeout
   function(error){
     console.log("Could not get location");
   });
@@ -135,7 +135,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
       infoView.append(phone);
 
       let website = document.createElement('a');
-      website.setAttribute('href', `${web}`);
       website.innerText = "website";
       infoView.append(website);
 

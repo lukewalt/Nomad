@@ -89,9 +89,12 @@ a {
   background-color: #ffc900;
   color: white;
   border: 5px solid white;
-  height: 30px;
-  width: 30px;
+  height: 37px;
+  width: 12px;
   margin: 0 8%;
+  font-size: 1.5em;
+  padding: 0 16px 0 11px;
+  font-family: serif
 }
 
 .yellow-icon {
@@ -190,7 +193,7 @@ a {
 }
 
 .spots-list {
-  padding: 11% 0 0 0;
+  padding: 20% 0 0 0;
 }
 
 .day-summery {
@@ -229,15 +232,6 @@ a {
   text-align: left;
 }
 
-.nameit-image {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: auto;
-  height: 100%;
-  opacity: 0.5;
-}
-
 #nameit-bkgrd {
-  background: radial-gradient(circle, white, #27BBAB); /* Standard syntax */
+  background: linear-gradient(145deg, #fff6d5 1%, #27BBAB 99%); /* Standard syntax */
 }
