@@ -1,4 +1,8 @@
 /* Empty. Add your own CSS if you like */
+.title {
+  font-family: 'Permanent Marker', cursive;
+
+}
 
 ion-nav-view,
 h1,
@@ -172,6 +176,8 @@ a {
   height: 50px;
   width: 100%;
   font-size: 25px;
+  font-family: 'Permanent Marker', cursive;
+  text-align: center;
 }
 
 .nameit-btn {
@@ -185,7 +191,7 @@ a {
 }
 
 .spots-list {
-  padding: 12% 0 0 0;
+  padding: 11% 0 0 0;
 }
 
 .day-summery {
@@ -194,12 +200,28 @@ a {
 }
 
 #title-header-login {
+  font-size: 3.5em;
   font-family: 'Permanent Marker', cursive;
   color: #ffc900;
-  font-size: 3.5em;
-  margin-bottom: 5%;
+  margin: 7%;
+}
+#title-header-logout {
+  font-family: 'Permanent Marker', cursive;
+  color: #ffc900;
+  margin: 7%;
+
 }
 
 .login-btn-div {
   padding: 0 3%;
+}
+
+.logout-modal-div {
+  text-align: center;
+  padding: 3%;
+}
+
+#spots-header {
+  font-family: 'Heebo', sans-serif;
+  font-size: 1.4em;
 }
