@@ -8,77 +8,80 @@ contrl.controller('SpotCtrl', function($scope, $stateParams, $timeout, $location
 
   const currentTrip = $stateParams.trip;
 
-  let curSpots = [];
-  let dt = [];
-  let tt = [];
 
-    firebaseFactory.getForm()
-    .then((val) => {
-      //sets all destinations to varibale
-      const allDestinations = val
-      console.log(allDestinations);
-      //loops over dests and only returns data matching current city
-      angular.forEach(allDestinations, (v, k) => {
-        console.log(currentTrip, v.trip);
-        if (v.trip === currentTrip) {
+  firebaseFactory.getForm()
+  .then((val) => {
+    let curSpots = [];
+    let dt = [];
+    let tt = [];
+    //sets all destinations to varibale
+    const allSpots = val.data
+    console.log("allSpots", allSpots);
 
-            // adds unique key as a value of key/value pair {key: id}
-            // to each object locally
-            v.key = k;
-            //pushes objects of currentCity to array
-            curSpots.push(v)
-            dt.push(parseFloat(v.destTime))
-            tt.push(parseFloat(v.travelTime))
+    //loops over dests and only returns data matching current city
+    angular.forEach(allSpots, (v, k) => {
+      console.log(currentTrip, v.trip);
+      if (v.trip === currentTrip) {
+          // adds unique key as a value of key/value pair {key: id}
+          // to each object locally
+          v.key = k;
+          //pushes objects of currentCity to array
+          curSpots.push(v)
+          dt.push(parseFloat(v.destTime))
+          tt.push(parseFloat(v.travelTime))
 
-        }
-      })
-      //sets scope to addition function calling poplated popltd arr
-      $scope.totalTrav = arrFactory.daySum(tt);
-      $scope.totalDest = arrFactory.daySum(dt);
-      //array of filter objects set to scope
-      $scope.dest = curSpots
+      }
     })
-    .then(() => {
 
-      curSpots = [];
-      dt = [];
-      tt = [];
-    })
+    //sets scope to addition function calling poplated popltd arr
+    $scope.totalTrav = arrFactory.daySum(tt);
+    $scope.totalDest = arrFactory.daySum(dt);
+    //array of filter objects set to scope
+    $scope.dest = curSpots
+  })
+  .then(() => {
+
+    curSpots = [];
+    dt = [];
+    tt = [];
+  })
   //gets spots for the day
 
 
-    //UI Slide / delete / reorder
-    $scope.data = {
-        showDelete: false
-      };
-
-
-    $scope.moveItem = function(item, fromIndex, toIndex) {
-      $scope.dest.splice(fromIndex, 1);
-      $scope.dest.splice(toIndex, 0, item);
+  //UI Slide / delete / reorder
+  $scope.data = {
+      showDelete: false
     };
 
 
-    $scope.onItemDelete = function(item, key) {
-
-      $scope.dest.splice($scope.dest.indexOf(item), 1)
-      // deletes obj in firebase
-      spotsRef.child(key).remove()
-    };
+  $scope.moveItem = function(item, fromIndex, toIndex) {
+    $scope.dest.splice(fromIndex, 1);
+    $scope.dest.splice(toIndex, 0, item);
+  };
 
 
-    $scope.flag = false;
-    $scope.addToFav = (item) => {
-      console.log("favs");
-      firebaseFactory.postFav(item)
-      .then(()=>{ $scope.flag = true })
-      .then($timeout(() => {
-        $scope.flag = false;
-      },3500))
-    }
-    // redired back to form back to form to add another spot
-    $scope.addAnotherSpot = () => {
-      $state.go('map.view', {trip: $scope.currentTrip} );
-    }
+  $scope.onItemDelete = function(item, key) {
+
+    $scope.dest.splice($scope.dest.indexOf(item), 1)
+    // deletes obj in firebase
+    spotsRef.child(key).remove()
+  };
+
+
+
+
+  $scope.flag = false;
+  $scope.addToFav = (item) => {
+    console.log("favs");
+    firebaseFactory.postFav(item)
+    .then(()=>{ $scope.flag = true })
+    .then($timeout(() => {
+      $scope.flag = false;
+    },3500))
+  }
+  // redired back to form back to form to add another spot
+  $scope.addAnotherSpot = () => {
+    $state.go('map.view', {trip: $scope.currentTrip} );
+  }
 
 })

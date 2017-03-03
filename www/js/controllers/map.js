@@ -5,7 +5,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
   $scope.goToMenu = ()=>{
     // $location.url(`/app/trips/${$stateParams.trip}/spots`);
-    $state.go('app.spots', {trip: $stateParams.trip })
+    $state.go('app.spots', {trip: $stateParams.trip})
   }
 
   //  http.get custom map style
@@ -60,7 +60,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
 
   },
-  //runs if cordova geolocation doesnt get current location
+  //catches error if no locaion could be found/google api timeout
   function(error){
     console.log("Could not get location");
   });
@@ -135,7 +135,6 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
       infoView.append(phone);
 
       let website = document.createElement('a');
-      website.setAttribute('href', `${web}`);
       website.innerText = "website";
       infoView.append(website);
 
@@ -162,7 +161,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
     let b = document.createElement('br')
     infoView.append(b)
 
-    let footer = document.createElement('form')
+    let footer = document.createElement('div')
     footer.setAttribute('class', 'infoViewFooter')
 
 
@@ -212,7 +211,7 @@ contrl.controller('GoogleMapCtrl', function($scope, $state, $stateParams, $locat
 
         .then(() => {
           if (select.value > 0) {
-            alert('You Added ' + spot.name + ' to info')
+            alert('You Added ' + spot.name + ' to Spots')
           }
         })
         .then(()=>{

@@ -1,12 +1,19 @@
 contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeolocation, gooGeoFactory) {
+
   $scope.trip = {}
 
-  let options = {timeout: 10000, enableHighAccuracy: true};
+  let options = {timeout: 1000, enableHighAccuracy: true};
+
 
   $cordovaGeolocation.getCurrentPosition(options)
   .then((position)=>{
-    console.log(position.coords.latitude, position.coords.longitude);
-    gooGeoFactory.geoCode(position.coords.latitude, position.coords.longitude)
+    console.log("nameit pos", position.coords.latitude, position.coords.longitude);
+    geo(position.coords.latitude, position.coords.longitude)
+  })
+  .catch((err)=>{console.log(err)})
+
+  function geo(x, y) {
+    gooGeoFactory.geoCode(x, y)
     .then((adr)=> {
 
       let strspl = adr.split(" ")
@@ -15,11 +22,11 @@ contrl.controller('NameitCtrl', function($scope, $state, $location, $cordovaGeol
         cty += strspl[i] + " "
 
       }
-      console.log(cty);
+      console.log("city", cty);
       $scope.curCity = cty
     })
 
-  })
+  }
 
   $scope.getTrip = () => {
     $scope.currentTrip = $scope.trip.name

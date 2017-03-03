@@ -2,7 +2,7 @@
   <ion-content>
     <img class="full-image" src="img/nomad.jpg">
 
-    <a href="#/app/trips/{{currentTrip}}/spots">
+    <a ng-click="gotoSpots()">
     <div class="card cur-trp-links">
       <div class="item item-text-wrap">
         <h1>Spots</h1>
@@ -10,19 +10,19 @@
       </div>
     </div>
     </a>
-    <a href="#/app/trips/{{currentTrip}}/info">
+    <a ng-click="gotoInfo()">
     <div class="card cur-trp-links">
       <div class="item item-text-wrap">
         <h1>Info</h1>
-        <i class="icon ion-information-circled yellow-icon"></i>
+        <i class="icon ion-ios-information-outline yellow-icon"></i>
       </div>
     </div>
     </a>
-    <a href="#/app/trips/{{currentTrip}}/fav-spots">
+    <a ng-click="gotoFavs()">
     <div class="card cur-trp-links">
       <div class="item item-text-wrap">
         <h1>Favorite Spots</h1>
-        <i class="icon ion-star yellow-icon"></i>
+        <i class="icon ion-flag yellow-icon"></i>
       </div>
     </div>
     </a>
