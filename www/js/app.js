@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.factories'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,52 +23,105 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+
+
+.config(($stateProvider, $urlRouterProvider) => {
   $stateProvider
 
+  .state('auth', {
+    url: '/auth',
+    abstract: true,
+    templateUrl: 'templates/auth.html',
+    controller: ''
+  })
+  .state('auth.login', {
+    url: '/login',
+    views: {
+      'authContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'AuthCtrl'
+      }
+    }
+  })
+  .state('map', {
+    url: '/map',
+    abstract: true,
+    templateUrl: 'templates/mapView.html',
+    controller: ''
+  })
+  .state('map.nameit', {
+    url: '/nameit',
+    views: {
+      'mapContent': {
+        templateUrl: 'templates/nameit.html',
+        controller: 'NameitCtrl'
+      }
+    }
+  })
+  .state('map.view', {
+    url: '/view/:trip',
+    views: {
+      'mapContent': {
+        templateUrl: 'templates/map.html',
+        controller: 'GoogleMapCtrl',
+        params: { trip: null }
+      }
+    }
+  })
     .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-
-  .state('app.search', {
-    url: '/search',
+  .state('app.trips', {
+    url: '/trips',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/trips.html',
+        controller: 'TripsCtrl'
+      }
+    }
+  })
+  .state('app.curTrip', {
+      url: '/trips/:trip',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/curTrip.html',
+          controller: 'CurTripCtrl'
+        }
+      }
+    })
+
+  .state('app.spots', {
+    url: '/trips/:trip/spots',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/spots.html',
+        controller: 'SpotCtrl'
+      },
+    params: { trip: null }
+    }
+  })
+  .state('app.info', {
+    url: '/trips/:trip/info',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/info.html',
+        controller: 'InfoCtrl'
+      }
+    }
+  })
+  .state('app.fav', {
+    url: '/trips/:trip/fav-spots',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/fav.html',
+        controller: 'FavCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/auth/login');
 });
