@@ -12,29 +12,58 @@ angular.module('starter.factories', [])
   }
 })
 
+.factory('gooGeoFactory', ($q, $http) => {
+  return {
+    distMtx: () => {
+      return $http.get(`/googlemapsapi/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJNT0D7YpmZIgRW_JTBDL7Iwg|place_id:ChIJKZauwUNmZIgRblF0U05TJWI&destinations=place_id:ChIJuY25rS9kZIgRN5MuBAa-JY4|place_id:ChIJ8VhEtvdmZIgRB-GYkpcO89M&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
+      .then((val) => console.log(val.data.rows))
+    },
+    geoCode: (lat, lng) => {
+      return $http.get(`/googlemapsapi/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA7FR9E3bQFP4wWEt_GFRfzr7qxaj-VcKw`)
+      .then((val) => {
+        const locInfo = val.data.results
+        console.log(locInfo);
+        let adr;
+        for (var i = 0; i < locInfo.length; i++) {
+          adr = locInfo[0].formatted_address
+          console.log(adr);
+          break
+        }
+        return adr
+
+      })
+    },
+    styleMap: () => {
+      return $http.get(`mapspecs.json`)
+      .then((val)=>{ return val.data })
+    }
+  }
+})
+
 .factory('firebaseFactory', ($q, $http) => {
   return {
     postForm: (form) => {
       return $q.resolve($http.post(`https://frontend-cap.firebaseio.com/destination/.json`, form));
     },
-    getCities: () => {
-      return $http.get(`https://frontend-cap.firebaseio.com/destination.json`)
+    getTrips: () => {
+      return $http.get(`https://frontend-cap.firebaseio.com/spots.json`)
       .then((val)=> val )
     },
     getForm: () => {
-      return firebase.database().ref('destination').once('value')
-      .then((snap)=> snap.val())
+      return $http.get(`https://frontend-cap.firebaseio.com/spots.json`)
     },
-    deleteForm: (key) => {
-      return firebase.database().ref('destination').child(key).remove()
+    deleteSpot: (key) => {
+      return firebase.database().ref('spots').child(key).remove()
     },
     deleteInfo: (key) => {
       return firebase.database().ref('info').child(key).remove()
     },
-
     getInfo: () => {
       return firebase.database().ref('info').once('value')
       .then((snap)=> snap.val())
+    },
+    deleteTrip: (name) => {
+      return firebase.database().ref('spots').child(name).remove()
     },
 
     postFav: (item) => {

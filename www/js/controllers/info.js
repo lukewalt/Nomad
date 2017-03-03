@@ -1,19 +1,19 @@
 contrl.controller('InfoCtrl', function($scope, $stateParams, firebaseFactory){
 
-  $scope.currentCity = $stateParams.city;
+  $scope.currentTrip = $stateParams.trip;
   // $scope.currentUser = firebase.auth().currentUser.uid;
-  console.log($scope.currentUser);
-
+  console.log($scope.currentTrip);
+  const input = document.getElementById('infoInput')
   const infoRef = firebase.database().ref('info');
 
   $scope.obj = {};
 
   $scope.addInfo = () => {
-    $scope.obj.city = $scope.currentCity;
+    $scope.obj.trip = $scope.currentTrip;
     $scope.obj.uid = firebase.auth().currentUser.uid;
-
     infoRef.push($scope.obj)
-    .then(() => $scope.obj.infonote = "")
+    .then(()=> input.value = " ")
+    .then(() => $scope.obj = {})
   }
 
   infoRef.on("child_added", () => {

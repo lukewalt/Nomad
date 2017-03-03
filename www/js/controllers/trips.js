@@ -1,26 +1,32 @@
-contrl.controller('TripsCtrl', function($scope, arrFactory, firebaseFactory){
+contrl.controller('TripsCtrl', function($scope, $state, $stateParams, arrFactory, firebaseFactory){
 
+  $scope.curTrip = $stateParams.trip
   // empty array will store all city values from object
-  let allCities = [];
-
+  let allTrips = [];
+  const spotRef = firebase.database().ref('spots')
+  $scope.currentUser = firebase.auth().currentUser.uid
 
   //gets all destinations and sets them to values
-  firebaseFactory.getCities()
+  firebaseFactory.getTrips()
     .then((val) => {
       //stores returned data in variable
-      console.log(val.data);
-      let allDestinations = val.data
+      $scope.allSpots = val.data
+      console.log($scope.allSpots);
       //takes all objects and extracts all instince values of city key
-
-        angular.forEach(allDestinations, (k, v) => {
-          if (firebase.auth().currentUser.uid === k.uid) {
+        angular.forEach($scope.allSpots, (k, v) => {
+          if ($scope.currentUser === k.uid) {
             //pushes all cities to array
-            allCities.push(k.city)
+            allTrips.push(k.trip)
             //filters 1 instince per city
-            $scope.cities = arrFactory.cleanArr(allCities)
+            $scope.trips = arrFactory.cleanArr(allTrips)
           }
         })
 
   })
+
+  $scope.gotoCurTrip = (name) => {
+    $stateParams.trip = name
+    $state.go('app.curTrip', {trip: $stateParams.trip})
+  }
 
 })

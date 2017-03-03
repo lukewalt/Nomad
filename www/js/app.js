@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.factories'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
     url: '/auth',
     abstract: true,
     templateUrl: 'templates/auth.html',
-    controller: 'AuthCtrl'
+    controller: ''
   })
   .state('auth.login', {
     url: '/login',
@@ -43,21 +43,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
+  .state('map', {
+    url: '/map',
+    abstract: true,
+    templateUrl: 'templates/mapView.html',
+    controller: ''
+  })
+  .state('map.nameit', {
+    url: '/nameit',
+    views: {
+      'mapContent': {
+        templateUrl: 'templates/nameit.html',
+        controller: 'NameitCtrl'
+      }
+    }
+  })
+  .state('map.view', {
+    url: '/view/:trip',
+    views: {
+      'mapContent': {
+        templateUrl: 'templates/map.html',
+        controller: 'GoogleMapCtrl',
+        params: { trip: null }
+      }
+    }
+  })
     .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
-  })
-
-  .state('app.form', {
-    url: '/form',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/form.html',
-        controller: 'FormCtrl',
-      }
-    }
   })
   .state('app.trips', {
     url: '/trips',
@@ -68,46 +83,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
-  .state('app.suggested', {
-    url: '/suggested',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/suggested.html',
-        controller: 'SugCtrl'
-      }
-    }
-  })
-
-  .state('app.city', {
-      url: '/trips/:city',
+  .state('app.curTrip', {
+      url: '/trips/:trip',
       views: {
         'menuContent': {
-          templateUrl: 'templates/city.html',
-          controller: 'CityCtrl'
+          templateUrl: 'templates/curTrip.html',
+          controller: 'CurTripCtrl'
         }
       }
     })
 
   .state('app.spots', {
-    url: '/trips/:city/spots',
+    url: '/trips/:trip/spots',
     views: {
       'menuContent': {
         templateUrl: 'templates/spots.html',
         controller: 'SpotCtrl'
-      }
+      },
+    params: { trip: null }
     }
   })
   .state('app.info', {
-    url: '/trips/:city/info',
+    url: '/trips/:trip/info',
     views: {
       'menuContent': {
-        templateUrl: 'templates/tripinfo.html',
+        templateUrl: 'templates/info.html',
         controller: 'InfoCtrl'
       }
     }
   })
   .state('app.fav', {
-    url: '/trips/:city/fav-spots',
+    url: '/trips/:trip/fav-spots',
     views: {
       'menuContent': {
         templateUrl: 'templates/fav.html',
@@ -115,6 +121,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.factories'])
       }
     }
   })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/auth/login');
 });

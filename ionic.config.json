@@ -1,4 +1,10 @@
 {
   "name": "frontend-cap",
-  "app_id": "35f54c9b"
+  "app_id": "35f54c9b",
+  "proxies": [
+    {
+      "path": "/googlemapsapi",
+      "proxyUrl": "https://maps.googleapis.com"
+    }
+  ]
 }

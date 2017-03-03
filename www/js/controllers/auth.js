@@ -25,13 +25,13 @@ contrl.controller('AuthCtrl', function($scope, $timeout, $ionicModal, $q, $http,
     authFactory
     .registerUser($scope.regData.email, $scope.regData.password)
     .then(()=> $scope.closeRegister())
-    .then(()=> $state.go('app.form'))
+    .then(()=> $state.go('map.nameit'))
 
   }
   $scope.doLogin = () => {
     authFactory
     .userLogin($scope.loginData.email, $scope.loginData.password)
-    .then(()=> $state.go('app.form'), {}, {reload: true})
+    .then(()=> $state.go('map.nameit'), {}, {reload: true})
 
   }
   // Simulate a login delay. Remove this and replace with your login

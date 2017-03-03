@@ -7,6 +7,14 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $state, $timeout) {
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  $scope.goToNameit = () => {
+    $state.go('map.nameit')
+  }
+  $scope.gotoTrips = () => {
+    $state.go('app.trips')
+  }
+
+
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/logout.html', {
     scope: $scope
@@ -15,7 +23,7 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $state, $timeout) {
   });
 
   // Triggered in the login modal to close it
-  $scope.closeLogout = function() {
+  $scope.doLogout = function() {
     firebase.auth().signOut()
 
     .then(()=>$scope.modal.hide())
@@ -28,9 +36,11 @@ contrl.controller('AppCtrl', function($scope, $ionicModal, $state, $timeout) {
     $scope.modal.show();
   };
 
-  $scope.goToTrips = ()=>{
-    $state.go('app.trips');
+  $scope.closeModal = ()=>{
+    $scope.modal.hide()
   }
+
+
 
 
 })
