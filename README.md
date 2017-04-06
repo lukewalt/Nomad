@@ -1,4 +1,3 @@
-# frontend-cap
+Nomad is a travel tool that allows users to interact with local points of interest to create a day.
 
-trello : https://trello.com/b/ic3jg1mP/frontend-capstone
-moqup: https://app.moqups.com/lukewdwrd.dev@gmail.com/EFWywEUh1l/edit/page/a90e26f5e
+This is a moble app built using Ionic Hybrid Moble Framework, Angular, Google Maps API, Google Places Library, and Firebase.
