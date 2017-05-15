@@ -6,4 +6,4 @@ Firebase authenticates users and stores data
 
 # Moqups
 
-<img src="www/img/ss1.png" height="400px"><img src="www/img/ss2.png" height="400px"><img src="www/img/ss3.png" height="400px"><img src="www/img/ss4.png" height="400px"><img src="www/img/ss5.png" height="400px"><img src="www/img/ss6.png" height="400px"><img src="www/img/ss7.png" height="400px">
+<img src="www/img/createday.png" height="400px"><img src="www/img/infowindow.png" height="400px"><img src="www/img/mapview.png" height="400px"><img src="www/img/notes.png" height="400px"><img src="www/img/priortrips.png" height="400px">
