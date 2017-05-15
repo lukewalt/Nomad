@@ -7,3 +7,7 @@ Firebase authenticates users and stores data
 # Moqups
 
 <img src="www/img/createday.jpg" height="400px" margin="5px"><img src="www/img/infowindow.jpg" height="400px" margin="5px"><img src="www/img/mapview.jpg" height="400px" margin="5px"><img src="www/img/notes.jpg" height="400px" margin="5px"><img src="www/img/priortrips.jpg" height="400px" margin="5px">
+
+# Version 2
+Features I wish to include on the next version:
+ - sharable lists 
