@@ -10,4 +10,6 @@ Firebase authenticates users and stores data
 
 # Version 2
 Features I wish to include on the next version:
- - sharable lists 
+ - sharable lists via text message 
+ - calculating directions to each selected location with precise travel calculation
+ - precurated days of travel if the user has no idea where or what to explore
