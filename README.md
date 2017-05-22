@@ -6,7 +6,7 @@ Firebase authenticates users and stores data
 
 # Moqups
 
-<img src="www/img/nomad-one.png" height="400px" margin="5px"><img src="www/img/nomad-two.png" height="400px" margin="5px"><img src="www/img/nomad-three.png" height="400px" margin="5px"><img src="www/img/nomad-four.png" height="400px" margin="5px"><img src="www/img/nomad-five.png" height="400px" margin="5px">
+<img src="www/img/nomad-one.png" height="400px" margin="2px"><img src="www/img/nomad-two.png" height="400px" margin="2px"><img src="www/img/nomad-three.png" height="400px" margin="2px"><img src="www/img/nomad-four.png" height="400px" margin="2px"><img src="www/img/nomad-five.png" height="400px" margin="2px">
 
 # Version 2
 Features I wish to include on the next version:
