@@ -6,4 +6,10 @@ Firebase authenticates users and stores data
 
 # Moqups
 
-<img src="www/img/ss1.png" height="400px"><img src="www/img/ss2.png" height="400px"><img src="www/img/ss3.png" height="400px"><img src="www/img/ss4.png" height="400px"><img src="www/img/ss5.png" height="400px"><img src="www/img/ss6.png" height="400px"><img src="www/img/ss7.png" height="400px">
+<img src="www/img/createday.jpg" height="400px" margin="5px"><img src="www/img/infowindow.jpg" height="400px" margin="5px"><img src="www/img/mapview.jpg" height="400px" margin="5px"><img src="www/img/notes.jpg" height="400px" margin="5px"><img src="www/img/priortrips.jpg" height="400px" margin="5px">
+
+# Version 2
+Features I wish to include on the next version:
+ - sharable lists via text message 
+ - calculating directions to each selected location with precise travel calculation
+ - precurated days of travel if the user has no idea where or what to explore
